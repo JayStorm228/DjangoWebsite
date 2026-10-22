@@ -1,0 +1,65 @@
+book.pdf
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Виртуальное окружение
+venv/
+.venv/
+env/
+ENV/
+.python-version
+
+# Django
+*.log
+*.pot
+*.mo
+local_settings.py
+production_settings.py
+db.sqlite3
+db.sqlite3-journal
+/media/
+/staticfiles/
+
+# Секреты и переменные окружения
+.env
+.env.*
+!.env.example
+
+# Тесты и покрытие
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.pytest_cache/
+.hypothesis/
+
+# Сборка и пакеты
+build/
+dist/
+*.egg-info/
+*.egg
+.eggs/
+wheels/
+pip-log.txt
+
+# Celery
+celerybeat-schedule
+celerybeat.pid
+
+# IDE: VS Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# IDE: PyCharm
+.idea/
+*.iws
+
+# macOS / Windows
+.DS_Store
+Thumbs.db

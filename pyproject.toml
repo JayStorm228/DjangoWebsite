@@ -1,0 +1,37 @@
+[project]
+name = "django-course"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "django>=6.1.2",
+]
+
+[tool.ruff]
+line-length = 88
+target-version = "py314"
+
+[tool.ruff.lint]
+select = [
+    "E",   # Ошибки стиля pycodestyle
+    "F",   # Ошибки Pyflakes: неиспользуемые импорты и переменные
+    "I",   # Сортировка импортов
+    "B",   # Потенциальные ошибки и опасные конструкции
+    "UP",  # Возможности современного Python
+]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
+[tool.djlint]
+profile = "django"
+indent = 4
+max_line_length = 120
+
+[dependency-groups]
+dev = [
+    "djlint>=1.46.6",
+    "ruff>=0.17.1",
+]
