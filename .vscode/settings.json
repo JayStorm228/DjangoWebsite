@@ -1,0 +1,135 @@
+{
+    // ---------- Python ----------
+    "python.languageServer": "Pylance",
+    "python.analysis.languageServerMode": "full",
+    "python.analysis.typeCheckingMode": "standard",
+
+    "python.analysis.inlayHints.variableTypes": true,
+    "python.analysis.inlayHints.functionReturnTypes": true,
+    "python.analysis.inlayHints.parameterNames": "literals",
+    "python.analysis.inlayHints.callArgumentNames": "off",
+
+    // ---------- Ruff ----------
+    "[python]": {
+        "editor.defaultFormatter": "charliermarsh.ruff",
+        "editor.formatOnSave": true,
+        "editor.formatOnType": true,
+        "editor.codeActionsOnSave": {
+            "source.organizeImports.ruff": "explicit",
+            "source.fixAll.ruff": "explicit"
+        }
+    },
+
+    "ruff.organizeImports": true,
+
+    // ---------- Тесты ----------
+    "python.testing.pytestEnabled": true,
+    "python.testing.unittestEnabled": false,
+    "python.testing.autoTestDiscoverOnSaveEnabled": true,
+
+    // ---------- Jupyter ----------
+    "jupyter.askForKernelRestart": false,
+    "jupyter.interactiveWindow.creationMode": "single",
+    "jupyter.interactiveWindow.textEditor.executeSelection": true,
+    "notebook.lineNumbers": "on",
+
+    // ---------- Общие настройки редактора ----------
+    "editor.rulers": [100],
+    "editor.wordWrap": "off",
+    "editor.occurrencesHighlight": "singleFile",
+    "editor.quickSuggestions": {
+        "other": "on",
+        "comments": "off",
+        "strings": "on"
+    },
+    "editor.suggestSelection": "first",
+
+    // ---------- Файлы и поиск ----------
+    "files.exclude": {
+        "**/__pycache__": true,
+        "**/.mypy_cache": true,
+        "**/.pytest_cache": true,
+        "**/.venv": true,
+        "**/venv": true,
+        "**/node_modules": true
+    },
+
+    "search.exclude": {
+        "**/__pycache__": true,
+        "**/.mypy_cache": true,
+        "**/.pytest_cache": true,
+        "**/.venv": true,
+        "**/venv": true,
+        "**/node_modules": true
+    },
+
+    "errorLens.messageMaxChars": 80,
+
+    // ---------- JSON ----------
+    "[json]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.formatOnSave": true
+    },
+
+    "[jsonc]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.formatOnSave": true
+    },
+
+    // ---------- Markdown ----------
+    "[markdown]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.formatOnSave": true,
+        "editor.wordWrap": "on",
+        "files.trimTrailingWhitespace": false
+    },
+
+    // ---------- Разделение HTML и Django-шаблонов ----------
+    "files.associations": {
+        "**/templates/**/*.html": "django-html",
+        "**/templates/**/*": "django-txt"
+    },
+
+    // ---------- Django HTML ----------
+    "[django-html]": {
+        "editor.defaultFormatter": "monosans.djlint",
+        "editor.formatOnSave": true,
+        "editor.formatOnType": false,
+        "editor.suggest.insertMode": "replace"
+    },
+
+    // ---------- Обычный HTML ----------
+    "[html]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.formatOnSave": true,
+        "editor.formatOnType": false,
+        "editor.suggest.insertMode": "replace"
+    },
+
+    // ---------- CSS ----------
+    "css.validate": true,
+    "css.completion.completePropertyWithSemicolon": true,
+    "css.completion.triggerPropertyValueCompletion": true,
+    "css.hover.documentation": true,
+    "css.lint.unknownProperties": "warning",
+
+    "[css]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.formatOnSave": true
+    },
+
+    // ---------- SCSS ----------
+    "scss.validate": true,
+
+    "[scss]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.formatOnSave": true
+    },
+
+    // ---------- Emmet ----------
+    "emmet.includeLanguages": {
+        "django-html": "html"
+    },
+    "emmet.showExpandedAbbreviation": "inMarkupAndStylesheetFilesOnly",
+    "emmet.triggerExpansionOnTab": true
+}
