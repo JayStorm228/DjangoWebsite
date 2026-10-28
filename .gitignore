@@ -63,3 +63,8 @@ celerybeat.pid
 # macOS / Windows
 .DS_Store
 Thumbs.db
+
+# Архивы
+*.zip
+*.rar
+*.7zip
