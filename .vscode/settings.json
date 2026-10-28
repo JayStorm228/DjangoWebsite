@@ -95,9 +95,15 @@
         "editor.defaultFormatter": "monosans.djlint",
         "editor.formatOnSave": true,
         "editor.formatOnType": false,
-        "editor.suggest.insertMode": "replace"
+        "editor.suggest.insertMode": "replace",
+        "editor.quickSuggestions": {
+            "other": true,
+            "comments": true,
+            "strings": true
+        },
+        "djlint.enableLinting": true,
+        "djlint.profile": "django"
     },
-
     // ---------- Обычный HTML ----------
     "[html]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode",

@@ -1,9 +1,6 @@
-<head>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
-        rel="stylesheet"
-        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
-        crossorigin="anonymous" />
-</head>
+{% extends "shop/base.html" %}
+
+{% block shop_content %}
 <table class="table table-striped table-hover table-bordered">
   <thead class="table-dark">
     <tr>
@@ -22,17 +19,14 @@
         <td>{{ course.student_qty }}</td>
         <td>{{ course.category }}</td>
         <td>
-          <button type="button">Buy</button>
+          <div><button type="button">Buy</button></div>
         </td>
       </tr>
     {% empty %}
       <tr>
-        <td>Курсов нет</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td colspan="5">Курсов нет</td>
       </tr>
     {% endfor %}
   </tbody>
 </table>
+{% endblock %}

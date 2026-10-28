@@ -1,27 +1,11 @@
-<head>
-  <link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
-    rel="stylesheet"
-    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
-    crossorigin="anonymous"
-  />
-</head>
-
-<body class="bg-light">
-
+{% extends "home/base.html" %}
+{% block title %}Добро пожаловать{% endblock %}
+{% block home_content %}
   <div class="container py-5">
     <div class="p-5 bg-white rounded-3 shadow-sm text-center">
       <h1 class="display-5 fw-bold">Добро пожаловать!</h1>
-
-      <p class="lead text-muted mt-3">
-        Здесь вы можете посмотреть доступные курсы.
-      </p>
-
-      <a href="/shop/" class="btn btn-primary btn-lg mt-3">
-        Перейти к курсам
-      </a>
+      <p class="lead text-muted mt-3">Здесь вы можете посмотреть доступные курсы.</p>
+      <a href"{% url "shop" %}" class="btn btn-primary btn-lg mt-3">Перейти к курсам</a>
     </div>
   </div>
-
-</body>
-</html>
+{% endblock %}
