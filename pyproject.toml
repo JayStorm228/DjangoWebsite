@@ -6,6 +6,7 @@ readme = "README.md"
 requires-python = ">=3.14"
 dependencies = [
     "django>=6.1.2",
+    "django-tastypie>=0.15.1",
 ]
 
 [tool.ruff]
@@ -33,5 +34,6 @@ max_line_length = 120
 [dependency-groups]
 dev = [
     "djlint>=1.46.6",
+    "pytest-django>=4.14.0",
     "ruff>=0.17.1",
 ]
