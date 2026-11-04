@@ -1,0 +1,27 @@
+<aside class="col-md-4 col-lg-3 bg-dark text-white p-4">
+    <h2 class="h5 mb-4">Параметры</h2>
+    <form method="get", action="{% url "shop:index" %}">
+        <div class="mb-3">
+            <label for="title" class="form-label">Название</label>
+            <input type="text"
+                   class="form-control"
+                   id="title"
+                   name="title"
+                   value="{{ selected_title }}"
+                   placeholder="Название курса">
+        </div>
+        <div class="mb-3">
+            <label for="category" class="form-label">Категория</label>
+            <select class="form-select" id="category" name="category">
+                <option value="">Все категории</option>
+                {% for category in categories %}
+                    <option value="{{ category.id }}"
+                            {% if category.id|stringformat:"s" == selected_category %}selected{% endif %}>
+                        {{ category.name }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Найти</button>
+    </form>
+</aside>
