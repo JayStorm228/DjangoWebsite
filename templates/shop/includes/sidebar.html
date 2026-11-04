@@ -17,7 +17,7 @@
                 {% for category in categories %}
                     <option value="{{ category.id }}"
                             {% if category.id|stringformat:"s" == selected_category %}selected{% endif %}>
-                        {{ category.name }}
+                        {{ category.title }}
                     </option>
                 {% endfor %}
             </select>
