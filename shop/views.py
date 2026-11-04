@@ -1,4 +1,4 @@
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import render
 
 from .models import Category, Course
 
@@ -24,7 +24,15 @@ def index(request):
 
 
 def single_course(request, course_id):
+    try:
+        course = Course.objects.get(pk=course_id)
+    except Course.DoesNotExist:
+        return render(
+            request,
+            "shop/includes/404CourseNotFound.html",
+            {"requested_course": course_id},
+            status=404,
+        )
 
-    course = get_object_or_404(Course, pk=course_id)
     context = {"course": course}
     return render(request, "shop/single_course.html", context)

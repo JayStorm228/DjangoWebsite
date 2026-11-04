@@ -1,0 +1,24 @@
+{% extends "shop/base.html" %}
+{% block title %}Курс не найден — TRShop{% endblock %}
+{% block shop_content %}
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-8">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body text-center p-5">
+                    <div class="display-1 fw-bold text-primary mb-2">404</div>
+                    <h1 class="h3 fw-bold mb-3">Курс не найден</h1>
+                    <p class="text-muted mb-1">
+                        К сожалению, курс с идентификатором
+                        <span class="badge bg-secondary">{{ requested_course }}</span>
+                        не существует, был удалён или ещё не опубликован.
+                    </p>
+                    <p class="text-muted mb-4">Проверьте ссылку или вернитесь в каталог курсов.</p>
+                    <div class="d-flex flex-column flex-sm-row justify-content-center gap-2">
+                        <a href="{% url 'shop:index' %}" class="btn btn-primary">К списку курсов</a>
+                        <a href="{% url 'home' %}" class="btn btn-outline-secondary">На главную</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
