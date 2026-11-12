@@ -45,8 +45,6 @@ class CourseSerializer(serializers.ModelSerializer):
             "image",
             "rating",
             "reviews_count",
-            "created_at",
-            "updated_at",
         )
 
     def get_rating(self, obj) -> float:
@@ -74,7 +72,7 @@ class ReviewSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Review
-        fields = ("id", "user", "rating", "text", "created_at")
+        fields = ("id", "user", "rating", "text")
 
 
 class OrderItemSerializer(serializers.ModelSerializer):
@@ -98,5 +96,4 @@ class OrderSerializer(serializers.ModelSerializer):
             "status_display",
             "total_price",
             "items",
-            "created_at",
         )
