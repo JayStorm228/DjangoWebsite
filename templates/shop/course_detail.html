@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load shop_tags %}
-{% block title %}{{ course.title }} — TRShop{% endblock %}
+{% block title %}{{ course.title }} — {{ site_settings.site_name }}{% endblock %}
 {% block meta_description %}{{ course.short_description }}{% endblock %}
 {% block nav_class %}navbar-shrink{% endblock %}
 
@@ -26,7 +26,7 @@
                         {% if course.image %}
                             <img src="{{ course.image.url }}" alt="{{ course.title }}" class="w-100 course-hero__img">
                         {% else %}
-                            <div class="course-hero__placeholder">TRShop</div>
+                            <div class="course-hero__placeholder">{{ site_settings.site_name }}</div>
                         {% endif %}
                     </div>
 
@@ -100,9 +100,9 @@
                     <div class="card border-0 shadow-sm purchase-card sticky-lg-top">
                         <div class="card-body p-4">
                             <div class="d-flex align-items-baseline gap-2 mb-1">
-                                <span class="display-6 fw-bold text-primary">{{ course.price|floatformat:2 }} ₽</span>
+                                <span class="display-6 fw-bold text-primary">{{ course.price|floatformat:2 }} {{ site_settings.currency_symbol }}</span>
                                 {% if course.old_price %}
-                                    <span class="text-muted text-decoration-line-through">{{ course.old_price|floatformat:2 }} ₽</span>
+                                    <span class="text-muted text-decoration-line-through">{{ course.old_price|floatformat:2 }} {{ site_settings.currency_symbol }}</span>
                                 {% endif %}
                             </div>
                             {% if course.discount_percent %}
@@ -135,7 +135,7 @@
                             {% for related in related_courses %}
                                 <a href="{{ related.get_absolute_url }}" class="related-course text-decoration-none">
                                     <span class="related-course__title">{{ related.title }}</span>
-                                    <span class="related-course__price">{{ related.price|floatformat:2 }} ₽</span>
+                                    <span class="related-course__price">{{ related.price|floatformat:2 }} {{ site_settings.currency_symbol }}</span>
                                 </a>
                             {% endfor %}
                         </div>

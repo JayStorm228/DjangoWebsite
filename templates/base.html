@@ -4,8 +4,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="{% block meta_description %}TRShop — учебная платформа с курсами по программированию, дизайну и аналитике.{% endblock %}">
-    <title>{% block title %}TRShop — курсы для роста{% endblock %}</title>
+    <meta name="description" content="{% block meta_description %}{{ site_settings.site_name }} — учебная платформа с курсами по программированию, дизайну и аналитике.{% endblock %}">
+    <title>{% block title %}{{ site_settings.site_name }} — курсы для роста{% endblock %}</title>
     <link rel="icon" type="image/x-icon" href="{% static 'assets/favicon.ico' %}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,7 +18,7 @@
     <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3 {% block nav_class %}{% endblock %}" id="mainNav">
         <div class="container px-4 px-lg-5">
             <a class="navbar-brand fw-bold" href="{% url 'home' %}">
-                <span class="brand-mark">TR</span>Shop
+                <span class="brand-mark">TR</span>{{ site_settings.site_name }}
             </a>
             <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Открыть меню">
                 <span class="navbar-toggler-icon"></span>
@@ -48,7 +48,8 @@
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenu">
                                 <li><a class="dropdown-item" href="{% url 'shop:order_list' %}">Мои покупки</a></li>
                                 {% if user.is_staff %}
-                                    <li><a class="dropdown-item" href="{% url 'admin:index' %}">Админка</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'admin:index' %}">Панель управления</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'admin:shop_sitesettings_changelist' %}">Настройки сайта</a></li>
                                 {% endif %}
                                 <li><hr class="dropdown-divider"></li>
                                 <li>
@@ -78,7 +79,21 @@
         <div class="container px-4 px-lg-5">
             <div class="row gy-3 align-items-center">
                 <div class="col-md-6">
-                    <span class="text-white fw-bold">TRShop</span> — учебный проект на Django и DRF.
+                    <span class="text-white fw-bold">{{ site_settings.site_name }}</span> — {{ site_settings.footer_text }}
+                    <div class="small mt-1">
+                        {% if site_settings.contact_email %}
+                            <a class="link-light text-decoration-none me-3" href="mailto:{{ site_settings.contact_email }}">{{ site_settings.contact_email }}</a>
+                        {% endif %}
+                        {% if site_settings.contact_phone %}
+                            <a class="link-light text-decoration-none me-3" href="tel:{{ site_settings.contact_phone }}">{{ site_settings.contact_phone }}</a>
+                        {% endif %}
+                        {% if site_settings.telegram_url %}
+                            <a class="link-light text-decoration-none me-3" href="{{ site_settings.telegram_url }}" target="_blank" rel="noopener">Telegram</a>
+                        {% endif %}
+                        {% if site_settings.github_url %}
+                            <a class="link-light text-decoration-none me-3" href="{{ site_settings.github_url }}" target="_blank" rel="noopener">GitHub</a>
+                        {% endif %}
+                    </div>
                 </div>
                 <div class="col-md-6 text-md-end small">
                     <a class="link-light text-decoration-none me-3" href="{% url 'swagger-ui' %}">API</a>

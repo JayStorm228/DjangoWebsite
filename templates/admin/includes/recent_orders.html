@@ -1,0 +1,35 @@
+{% load i18n %}
+{% if orders %}
+    <div class="tr-table-wrap">
+        <table class="tr-table">
+            <thead>
+                <tr>
+                    <th>Заказ</th>
+                    <th>Покупатель</th>
+                    <th>Курсы</th>
+                    <th class="tr-table__num">Сумма</th>
+                    <th>Статус</th>
+                    <th>Дата</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orders %}
+                    <tr>
+                        <td>
+                            <a href="{% url 'admin:shop_order_change' order.pk %}">{{ order.number }}</a>
+                        </td>
+                        <td>{{ order.user.username }}</td>
+                        <td class="tr-muted">{{ order.items.all|length }}</td>
+                        <td class="tr-table__num">{{ order.total_price|floatformat:2 }} {{ site_settings.currency_symbol }}</td>
+                        <td>
+                            <span class="tr-badge tr-badge--{{ order.status }}">{{ order.get_status_display }}</span>
+                        </td>
+                        <td class="tr-muted">{{ order.created_at|date:"d.m.Y H:i" }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% else %}
+    <p class="tr-empty">Заказов пока нет. Как только покупатель оформит первый, он появится здесь.</p>
+{% endif %}

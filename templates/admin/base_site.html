@@ -1,0 +1,27 @@
+{% extends "admin/base.html" %}
+{% load i18n static %}
+
+{% block title %}{{ title }} | {{ site_settings.site_name|default:"TRShop" }}{% endblock %}
+
+{% block extrastyle %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'admin/css/trshop-admin.css' %}">
+{% endblock %}
+
+{% block branding %}
+    <div id="site-name">
+        <a href="{% url 'admin:index' %}">
+            <span class="tr-brand-mark">TR</span>
+            {{ site_settings.site_name|default:"TRShop" }}
+        </a>
+        <div class="tr-brand-sub">{{ site_settings.site_tagline|default:"Панель управления" }}</div>
+    </div>
+{% endblock %}
+
+{% block nav-global %}
+    <div class="tr-nav-links">
+        <a href="/" target="_blank" rel="noopener">Открыть сайт ↗</a>
+        <a href="{% url 'swagger-ui' %}" target="_blank" rel="noopener">API-документация ↗</a>
+        <a href="{% url 'admin:shop_sitesettings_changelist' %}">Настройки сайта</a>
+    </div>
+{% endblock %}

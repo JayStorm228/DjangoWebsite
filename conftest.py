@@ -59,3 +59,16 @@ def staff_user(db):
 def auth_client(client, user):
     client.force_login(user)
     return client
+
+
+@pytest.fixture
+def admin_user(db):
+    return User.objects.create_superuser(
+        username="root", email="root@example.com", password="test-pass-12345"
+    )
+
+
+@pytest.fixture
+def admin_client(client, admin_user):
+    client.force_login(admin_user)
+    return client

@@ -13,7 +13,7 @@ from django.views.generic import DetailView, ListView
 
 from .cart import Cart
 from .forms import RegisterForm, ReviewForm
-from .models import Category, Course, Order, OrderItem, Review
+from .models import Category, Course, Order, OrderItem, Review, SiteSettings
 
 SORT_OPTIONS = {
     "new": ("-created_at", "Сначала новые"),
@@ -37,6 +37,9 @@ class CourseListView(ListView):
     template_name = "shop/course_list.html"
     context_object_name = "courses"
     paginate_by = 9
+
+    def get_paginate_by(self, queryset):
+        return SiteSettings.load().courses_per_page
 
     def get_queryset(self):
         queryset = (
