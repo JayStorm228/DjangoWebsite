@@ -1,5 +1,8 @@
 from django.contrib import admin
 from django.urls import include, path
+from tastypie.api import Api
+
+from api.models import CategoryResource, CourseResource
 
 from .views import index
 
@@ -19,10 +22,15 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-
+api = Api(api_name="v1")
+course_resource = CourseResource()
+category_resource = CategoryResource()
+api.register(category_resource)
+api.register(course_resource)
 
 urlpatterns = [
     path("admin/", admin.site.urls, name="admin"),
     path("shop/", include("shop.urls")),
     path("", index, name="home"),
+    path("api/", include(api.urls)),
 ]
