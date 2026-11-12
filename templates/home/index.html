@@ -1,11 +1,26 @@
 {% extends "home/base.html" %}
-{% block title %}Добро пожаловать{% endblock %}
+{% block title %}Главная{% endblock %}
 {% block home_content %}
   <div class="container py-5">
-    <div class="p-5 bg-white rounded-3 shadow-sm text-center">
-      <h1 class="display-5 fw-bold">Добро пожаловать!</h1>
-      <p class="lead text-muted mt-3">Здесь вы можете посмотреть доступные курсы.</p>
-      <a href="{% url "shop:index" %}" class="btn btn-primary btn-lg mt-3">Перейти к курсам</a>
+    <div class="row align-items-center g-5">
+      <div class="col-lg-7">
+        <h1 class="fw-bold mb-3">Курсы для обучения и развития</h1>
+        <p class="text-muted fs-5 mb-4">
+          В каталоге собраны доступные курсы. Выберите подходящую тему,
+          посмотрите описание и начните обучение.
+        </p>
+        <a href="{% url 'shop:index' %}" class="btn btn-primary btn-lg px-4">Смотреть курсы</a>
+      </div>
+      <div class="col-lg-5">
+        <div class="bg-white border rounded-3 p-4">
+          <h2 class="h5 fw-semibold mb-3">Как это работает</h2>
+          <ol class="mb-0 ps-3 text-muted">
+            <li class="mb-2">Откройте каталог курсов.</li>
+            <li class="mb-2">Выберите интересующую тему.</li>
+            <li>Перейдите к материалам курса.</li>
+          </ol>
+        </div>
+      </div>
     </div>
   </div>
 {% endblock %}

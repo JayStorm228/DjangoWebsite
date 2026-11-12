@@ -7,5 +7,8 @@
         <p>{{ course.price }}</p>
         <p>{{ course.students_qty }}</p>
         <button type="button" class="btn btn-primary btn-lg w-100 mt-3">Buy</button>
+        <a type="button"
+           class="btn btn-primary btn-lg w-100 mt-3"
+           href="{% url 'shop:index' %}">Назад</a>
     {% endblock %}
 {% endblock %}
