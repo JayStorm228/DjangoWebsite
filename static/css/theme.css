@@ -1,0 +1,494 @@
+/* ==========================================================================
+   TRShop — тема поверх Start Bootstrap «Creative» (Bootstrap 5.2)
+   ========================================================================== */
+
+:root {
+    --tr-ink: #1f2937;
+    --tr-muted: #6b7280;
+    --tr-cream: #faf7f4;
+    --tr-line: rgba(31, 41, 55, 0.08);
+    --tr-shadow: 0 18px 40px rgba(31, 41, 55, 0.08);
+}
+
+body {
+    font-family: "Merriweather Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    color: var(--tr-ink);
+    padding-top: 0;
+}
+
+h1, h2, h3, h4, h5, .h1, .h2, .h3, .h4, .h5 {
+    letter-spacing: -0.01em;
+}
+
+a {
+    color: #d9502c;
+}
+
+a:hover {
+    color: #b84122;
+}
+
+.btn-primary {
+    --bs-btn-bg: #f4623a;
+    --bs-btn-border-color: #f4623a;
+    --bs-btn-hover-bg: #d9502c;
+    --bs-btn-hover-border-color: #d9502c;
+    --bs-btn-active-bg: #c44625;
+    --bs-btn-active-border-color: #c44625;
+    border-radius: 999px;
+    font-weight: 600;
+    padding-inline: 1.4rem;
+}
+
+.btn-outline-primary {
+    --bs-btn-color: #d9502c;
+    --bs-btn-border-color: #f4623a;
+    --bs-btn-hover-bg: #f4623a;
+    --bs-btn-hover-border-color: #f4623a;
+    border-radius: 999px;
+    font-weight: 600;
+}
+
+.btn-outline-light,
+.btn-light {
+    border-radius: 999px;
+    font-weight: 600;
+}
+
+.btn-link {
+    text-decoration: none;
+}
+
+.form-control,
+.form-select {
+    border-radius: 0.75rem;
+    border-color: rgba(31, 41, 55, 0.16);
+    padding-block: 0.6rem;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: #f4623a;
+    box-shadow: 0 0 0 0.2rem rgba(244, 98, 58, 0.15);
+}
+
+/* --- Навигация ----------------------------------------------------------- */
+
+#mainNav {
+    background-color: rgba(20, 24, 31, 0.55);
+    backdrop-filter: blur(10px);
+    transition: background-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+#mainNav .navbar-brand,
+#mainNav .nav-link {
+    color: #fff;
+}
+
+#mainNav .navbar-toggler {
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+#mainNav .navbar-toggler-icon {
+    filter: invert(1);
+}
+
+#mainNav .nav-link {
+    font-weight: 500;
+    padding-inline: 0.85rem;
+}
+
+#mainNav .nav-link:hover,
+#mainNav .nav-link:focus {
+    color: #ffd9cc;
+}
+
+#mainNav.navbar-shrink {
+    background-color: #fff;
+    box-shadow: 0 6px 24px rgba(31, 41, 55, 0.08);
+}
+
+#mainNav.navbar-shrink .navbar-brand,
+#mainNav.navbar-shrink .nav-link {
+    color: var(--tr-ink);
+}
+
+#mainNav.navbar-shrink .nav-link:hover {
+    color: #d9502c;
+}
+
+#mainNav.navbar-shrink .navbar-toggler {
+    border-color: rgba(31, 41, 55, 0.2);
+}
+
+#mainNav.navbar-shrink .navbar-toggler-icon {
+    filter: none;
+}
+
+#mainNav .btn-primary,
+#mainNav .btn-primary:hover {
+    color: #fff;
+}
+
+.brand-mark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    margin-right: 0.35rem;
+    border-radius: 0.6rem;
+    background: #f4623a;
+    color: #fff;
+    font-size: 0.85rem;
+    font-weight: 800;
+    vertical-align: middle;
+}
+
+.cart-badge {
+    position: absolute;
+    top: -0.15rem;
+    right: -0.25rem;
+    min-width: 1.1rem;
+    padding: 0.05rem 0.3rem;
+    border-radius: 999px;
+    background: #f4623a;
+    color: #fff;
+    font-size: 0.65rem;
+    font-weight: 700;
+    line-height: 1.4;
+    text-align: center;
+}
+
+#mainNav.navbar-shrink .cart-badge {
+    color: #fff;
+}
+
+.navbar .dropdown-menu {
+    border: 0;
+    border-radius: 0.9rem;
+    box-shadow: var(--tr-shadow);
+    padding: 0.5rem;
+}
+
+.navbar .dropdown-item {
+    border-radius: 0.5rem;
+    font-size: 0.95rem;
+}
+
+/* --- Hero ---------------------------------------------------------------- */
+
+header.masthead {
+    min-height: 100vh;
+    padding-top: 6rem;
+    padding-bottom: 4rem;
+    background: linear-gradient(120deg, rgba(16, 22, 33, 0.9) 0%, rgba(24, 33, 48, 0.78) 55%, rgba(244, 98, 58, 0.35) 100%),
+        url("../assets/img/bg-masthead.jpg") center / cover no-repeat;
+}
+
+header.masthead h1 {
+    text-shadow: 0 2px 24px rgba(0, 0, 0, 0.25);
+}
+
+.hero-badge {
+    display: inline-block;
+    padding: 0.4rem 0.9rem;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 999px;
+    font-size: 0.8rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.hero-lead {
+    max-width: 34rem;
+}
+
+.hero-stats__value {
+    font-size: 1.9rem;
+    font-weight: 800;
+    line-height: 1;
+}
+
+.hero-stats__label {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.hero-card {
+    background: #fff;
+    border-radius: 1.1rem;
+    padding: 1.6rem;
+    box-shadow: var(--tr-shadow);
+}
+
+.hero-card__row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.65rem 0;
+    border-bottom: 1px solid var(--tr-line);
+    color: var(--tr-ink);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.hero-card__row:last-child {
+    border-bottom: 0;
+}
+
+.hero-card__row:hover {
+    color: #d9502c;
+}
+
+/* --- Секции -------------------------------------------------------------- */
+
+.page-section {
+    padding: 5.5rem 0;
+}
+
+.page-header {
+    padding: 9rem 0 2.5rem;
+    background: linear-gradient(180deg, #fff 0%, var(--tr-cream) 100%);
+    border-bottom: 1px solid var(--tr-line);
+}
+
+.divider {
+    width: 3.5rem;
+    height: 0.25rem;
+    margin: 1.25rem auto;
+    background-color: #f4623a;
+    opacity: 1;
+    border-radius: 999px;
+}
+
+.feature__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 4rem;
+    height: 4rem;
+    border-radius: 1.1rem;
+    background: rgba(244, 98, 58, 0.12);
+    color: #f4623a;
+}
+
+/* --- Карточки курсов ----------------------------------------------------- */
+
+.course-card {
+    border-radius: 1rem;
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.course-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 22px 44px rgba(31, 41, 55, 0.12) !important;
+}
+
+.course-card__media {
+    position: relative;
+    display: block;
+    overflow: hidden;
+}
+
+.course-card__media img {
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    transition: transform 0.35s ease;
+}
+
+.course-card:hover .course-card__media img {
+    transform: scale(1.04);
+}
+
+.course-card__discount {
+    position: absolute;
+    top: 0.75rem;
+    left: 0.75rem;
+    padding: 0.4rem 0.6rem;
+    border-radius: 0.5rem;
+}
+
+.badge-soft {
+    background: rgba(244, 98, 58, 0.12);
+    color: #b84122;
+    font-weight: 600;
+    padding: 0.4rem 0.65rem;
+    border-radius: 0.5rem;
+}
+
+.course-price {
+    font-weight: 800;
+    font-size: 1.15rem;
+}
+
+.course-price-old {
+    margin-left: 0.35rem;
+    color: var(--tr-muted);
+    font-size: 0.85rem;
+    text-decoration: line-through;
+}
+
+.category-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.55rem 1rem;
+    border: 1px solid var(--tr-line);
+    border-radius: 999px;
+    background: #fff;
+    color: var(--tr-ink);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.92rem;
+}
+
+.category-pill span {
+    color: var(--tr-muted);
+    font-weight: 500;
+}
+
+.category-pill:hover {
+    border-color: #f4623a;
+    color: #d9502c;
+}
+
+/* --- Каталог ------------------------------------------------------------- */
+
+.filter-card {
+    border-radius: 1rem;
+    position: sticky;
+    top: 6.5rem;
+}
+
+/* --- Страница курса ------------------------------------------------------ */
+
+.course-hero__img {
+    display: block;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+}
+
+.course-hero__placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 16 / 9;
+    background: linear-gradient(135deg, #1f2937, #f4623a);
+    color: #fff;
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+}
+
+.course-description {
+    line-height: 1.75;
+}
+
+.purchase-card {
+    border-radius: 1rem;
+    top: 6.5rem;
+}
+
+.related-course {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid var(--tr-line);
+    color: var(--tr-ink);
+    font-weight: 600;
+    font-size: 0.92rem;
+}
+
+.related-course:hover {
+    color: #d9502c;
+}
+
+.related-course__price {
+    color: var(--tr-muted);
+    white-space: nowrap;
+    font-weight: 500;
+}
+
+/* --- Корзина ------------------------------------------------------------- */
+
+.cart-thumb img {
+    width: 96px;
+    height: 64px;
+    border-radius: 0.6rem;
+    object-fit: cover;
+}
+
+/* --- Сообщения ----------------------------------------------------------- */
+
+.messages-wrap {
+    position: fixed;
+    top: 5.5rem;
+    right: 1rem;
+    z-index: 1080;
+    width: min(24rem, calc(100vw - 2rem));
+}
+
+.messages-wrap .alert {
+    border: 0;
+    border-radius: 0.8rem;
+}
+
+/* --- Прочее -------------------------------------------------------------- */
+
+.pagination .page-link {
+    color: var(--tr-ink);
+    border-color: var(--tr-line);
+    border-radius: 0.5rem;
+    margin-inline: 0.15rem;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #f4623a;
+    border-color: #f4623a;
+}
+
+.footer {
+    background: #161b22 !important;
+}
+
+.table > :not(caption) > * > * {
+    padding-block: 0.85rem;
+}
+
+code {
+    color: #b84122;
+}
+
+/* --- Адаптив ------------------------------------------------------------- */
+
+@media (max-width: 991.98px) {
+    header.masthead {
+        min-height: auto;
+        padding-top: 8rem;
+        padding-bottom: 4rem;
+    }
+
+    .page-header {
+        padding-top: 7rem;
+    }
+
+    .filter-card,
+    .purchase-card {
+        position: static;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .display-4 {
+        font-size: 2.4rem;
+    }
+
+    .course-price {
+        font-size: 1rem;
+    }
+}

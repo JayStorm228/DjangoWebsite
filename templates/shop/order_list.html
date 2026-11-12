@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load shop_tags %}
+{% block title %}Мои покупки — TRShop{% endblock %}
+{% block nav_class %}navbar-shrink{% endblock %}
+
+{% block content %}
+    <section class="page-header">
+        <div class="container px-4 px-lg-5">
+            <h1 class="fw-bold mb-2">Мои покупки</h1>
+            <p class="text-muted mb-0">Курсы, которые вы уже приобрели.</p>
+        </div>
+    </section>
+
+    <section class="pb-5">
+        <div class="container px-4 px-lg-5">
+            {% if orders %}
+                <div class="row g-4">
+                    {% for order in orders %}
+                        <div class="col-12">
+                            <div class="card border-0 shadow-sm">
+                                <div class="card-body">
+                                    <div class="d-flex flex-wrap justify-content-between align-items-center gap-2">
+                                        <div>
+                                            <h2 class="h6 mb-1">Заказ {{ order.number }}</h2>
+                                            <div class="small text-muted">{{ order.created_at|date:"d.m.Y H:i" }} · {{ order.items.count }} {{ order.items.count|ru_plural:"курс,курса,курсов" }}</div>
+                                        </div>
+                                        <div class="d-flex align-items-center gap-3">
+                                            <span class="badge {% if order.status == 'paid' %}bg-success{% else %}bg-secondary{% endif %}">{{ order.get_status_display }}</span>
+                                            <span class="fw-bold">{{ order.total_price|floatformat:2 }} ₽</span>
+                                            <a href="{% url 'shop:order_detail' order.pk %}" class="btn btn-outline-primary btn-sm">Открыть</a>
+                                        </div>
+                                    </div>
+                                    <div class="mt-3 d-flex flex-wrap gap-2">
+                                        {% for item in order.items.all %}
+                                            <a href="{{ item.course.get_absolute_url }}" class="badge badge-soft text-decoration-none">{{ item.title }}</a>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                {% include "includes/pagination.html" %}
+            {% else %}
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body text-center py-5">
+                        <div class="display-5 mb-3">📚</div>
+                        <h2 class="h4">Покупок пока нет</h2>
+                        <p class="text-muted mb-4">Выберите первый курс — он появится в этом разделе сразу после оплаты.</p>
+                        <a href="{% url 'shop:course_list' %}" class="btn btn-primary btn-lg">В каталог</a>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </section>
+{% endblock %}

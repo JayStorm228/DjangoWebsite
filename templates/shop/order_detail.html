@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block title %}Заказ {{ order.number }} — TRShop{% endblock %}
+{% block nav_class %}navbar-shrink{% endblock %}
+
+{% block content %}
+    <section class="page-header">
+        <div class="container px-4 px-lg-5">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb small mb-2">
+                    <li class="breadcrumb-item"><a href="{% url 'home' %}">Главная</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'shop:order_list' %}">Мои покупки</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ order.number }}</li>
+                </ol>
+            </nav>
+            <h1 class="fw-bold mb-2">Заказ {{ order.number }}</h1>
+            <p class="text-muted mb-0">от {{ order.created_at|date:"d.m.Y H:i" }}</p>
+        </div>
+    </section>
+
+    <section class="pb-5">
+        <div class="container px-4 px-lg-5">
+            <div class="row g-4">
+                <div class="col-lg-8">
+                    <div class="alert alert-success d-flex align-items-center gap-2">
+                        <span class="fs-5">✓</span>
+                        <div>Спасибо за покупку! Доступ к курсам уже открыт.</div>
+                    </div>
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table align-middle mb-0">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th scope="col">Курс</th>
+                                            <th scope="col" class="text-end">Цена</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for item in order.items.all %}
+                                            <tr>
+                                                <td>
+                                                    <a href="{{ item.course.get_absolute_url }}" class="text-reset text-decoration-none fw-semibold">{{ item.title }}</a>
+                                                    <div class="small text-muted">{{ item.course.category.title }}</div>
+                                                </td>
+                                                <td class="text-end">{{ item.price|floatformat:2 }} ₽</td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                    <tfoot class="table-light">
+                                        <tr>
+                                            <th>Итого</th>
+                                            <th class="text-end">{{ order.total_price|floatformat:2 }} ₽</th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body p-4">
+                            <h2 class="h6 text-uppercase text-muted mb-3">Детали</h2>
+                            <dl class="row mb-0 small">
+                                <dt class="col-6 text-muted fw-normal">Статус</dt>
+                                <dd class="col-6 text-end">{{ order.get_status_display }}</dd>
+                                <dt class="col-6 text-muted fw-normal">Покупатель</dt>
+                                <dd class="col-6 text-end">{{ order.user.username }}</dd>
+                                <dt class="col-6 text-muted fw-normal">Позиций</dt>
+                                <dd class="col-6 text-end">{{ order.items.count }}</dd>
+                            </dl>
+                            <a href="{% url 'shop:order_list' %}" class="btn btn-outline-primary w-100 mt-4">Все покупки</a>
+                            <a href="{% url 'shop:course_list' %}" class="btn btn-link w-100 text-muted">В каталог</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

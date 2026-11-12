@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block title %}Оформление заказа — TRShop{% endblock %}
+{% block nav_class %}navbar-shrink{% endblock %}
+
+{% block content %}
+    <section class="page-header">
+        <div class="container px-4 px-lg-5">
+            <h1 class="fw-bold mb-2">Оформление заказа</h1>
+            <p class="text-muted mb-0">Проверьте данные и подтвердите покупку.</p>
+        </div>
+    </section>
+
+    <section class="pb-5">
+        <div class="container px-4 px-lg-5">
+            <div class="row g-4">
+                <div class="col-lg-7">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body p-4">
+                            <h2 class="h6 text-uppercase text-muted mb-3">Состав заказа</h2>
+                            {% for course in cart %}
+                                <div class="d-flex justify-content-between align-items-start py-3 border-bottom">
+                                    <div>
+                                        <div class="fw-semibold">{{ course.title }}</div>
+                                        <div class="small text-muted">{{ course.category.title }} · {{ course.duration_hours }} ч</div>
+                                    </div>
+                                    <div class="fw-bold">{{ course.price|floatformat:2 }} ₽</div>
+                                </div>
+                            {% endfor %}
+                            <div class="d-flex justify-content-between align-items-baseline pt-3">
+                                <span class="fw-bold">Итого</span>
+                                <span class="h4 text-primary fw-bold mb-0">{{ cart.total_price|floatformat:2 }} ₽</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-5">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body p-4">
+                            <h2 class="h6 text-uppercase text-muted mb-3">Покупатель</h2>
+                            <dl class="row mb-4 small">
+                                <dt class="col-4 text-muted fw-normal">Логин</dt>
+                                <dd class="col-8 mb-1">{{ user.username }}</dd>
+                                <dt class="col-4 text-muted fw-normal">Email</dt>
+                                <dd class="col-8 mb-0">{{ user.email|default:"не указан" }}</dd>
+                            </dl>
+                            <div class="alert alert-info small">
+                                Это учебный магазин: оплата имитируется, заказ сразу переходит в статус «Оплачен».
+                            </div>
+                            <form method="post" action="{% url 'shop:checkout' %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-primary w-100 btn-lg">Подтвердить заказ</button>
+                            </form>
+                            <a href="{% url 'shop:cart' %}" class="btn btn-link w-100 text-muted">Вернуться в корзину</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

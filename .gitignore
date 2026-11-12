@@ -68,3 +68,6 @@ Thumbs.db
 *.zip
 *.rar
 *.7zip
+
+# Ruff
+.ruff_cache/

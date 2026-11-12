@@ -6,6 +6,51 @@
 
 ---
 
+## Статус на 12.11.2026 (после первой итерации)
+
+Ниже перечислены решения, которые уже реализованы в проекте. Сам аудит оставлен
+как история: он описывает исходное состояние коммита `67307f2`.
+
+| Проблема | Решение | Статус |
+|---|---|---|
+| P0-1 `ALLOWED_HOSTS` / preview | env-настройки, `ALLOWED_HOSTS`, `CSRF_TRUSTED_ORIGINS` | ✅ |
+| P0-2 конфликт версий | Django 6.1 + DRF, `requires-python = ">=3.12"`, tastypie удалён | ✅ |
+| P0-3 `?category=abc` → 500 | безопасный разбор фильтров + тесты на мусорные параметры | ✅ |
+| P0-4 API падает / нет валидации | каталог API только для чтения, заказы — только владельцу; сериализаторы DRF | ✅ |
+| P0-5 `category_id` = название | вложенная категория + корректный slug в ответе | ✅ |
+| P0-6 удаление чужих курсов | публичный API read-only, запись — через админку | ✅ |
+| P0-7 секреты в Git | `SECRET_KEY`/`DEBUG` из окружения, `.env.example` | ✅ |
+| P0-8 дрейф миграций | `DEFAULT_AUTO_FIELD`, новая чистая миграция | ✅ |
+| P1-1 цена во float | `DecimalField`, вывод в рублях, старая цена и скидка | ✅ |
+| P1-2 поиск/пагинация/N+1 | `icontains`, `select_related`, `annotate`, пагинация по 9, сортировки | ✅ |
+| P1-3 пустая карточка курса | новая страница: обложка, описание, отзывы, метрики, CTA | ✅ |
+| P1-4 404 и маршруты | `get_object_or_404`, slug-URL, страницы 404/500 | ✅ |
+| P1-5 «Buy» ничего не делает | корзина, оформление, заказы, «Мои покупки», отзывы | ✅ |
+| P1-6 нет API | DRF: каталог, категории, заказы, токены, OpenAPI и Swagger | ✅ |
+| P1-7 визуал | тема Start Bootstrap + `theme.css`, карточки, обложки | ✅ |
+| P1-8 плюрализация и языки | `ru-ru`, фильтр `ru_plural`, единый русский интерфейс | ✅ |
+| P1-9 админка и демо-данные | настроенная админка + `seed_demo` | ✅ |
+| P2-1 тесты | 37 тестов (pytest-django) | ✅ |
+| P2-2 CI и линт | GitHub Actions, ruff/ruff format/djlint/migrations/pytest | ✅ |
+| P2-3 README | полная документация и быстрый старт | ✅ |
+| P2-4 медиа | `MEDIA_URL/MEDIA_ROOT`, `ImageField`, Pillow | ✅ |
+| P2-5 структура API | `serializers.py`, `views.py`, `urls.py`, `pagination.py` | ✅ |
+| P2-6 модели | verbose_name, auto_now_add, related_name, индексы, ограничения | ✅ |
+| P2-7 настройки | env, логирование, WhiteNoise, прод-безопасность | ✅ |
+| P2-8 шаблоны | чистое наследование, include-ы, единый base | ✅ |
+| P2-9 API-контракт | фильтры, поиск, сортировка, схема OpenAPI | ✅ |
+| P2-10 API-ключи | токены DRF и endpoint `/api/v1/auth/token/` | ✅ |
+| P2-11 доступность/SEO | метаописания, семантика, адаптивные карточки | ✅ |
+| P2-12 `main.py` | удалён | ✅ |
+| P3 стиль | ruff/форматирование/мелочи | ✅ |
+
+**Что осталось как осознанный выбор / следующий шаг:** PostgreSQL и Docker для
+продакшена, CORS (если появятся браузерные клиенты на других доменах), оплата
+через реальный платёжный шлюз, кэширование каталога, загрузка видео/материалов
+курса, письма и сброс пароля с реальным SMTP.
+
+---
+
 ## 0. Как проверял
 
 | Проверка | Команда | Результат |
@@ -370,6 +415,7 @@ Cart ──* CartItem ──* Course          Order 1──* OrderItem *──1 
 ```python
 # config/settings.py
 import os
+
 DEBUG = os.getenv("DJANGO_DEBUG", "1") == "1"
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "dev-only-insecure-key")
 ALLOWED_HOSTS = [h for h in os.getenv("DJANGO_ALLOWED_HOSTS", "*").split(",") if h]
@@ -384,6 +430,7 @@ TIME_ZONE = "Europe/Kaliningrad"
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
 
+
 def index(request):
     courses = Course.objects.select_related("category").order_by("-created_at")
     title = request.GET.get("title", "").strip()
@@ -393,6 +440,7 @@ def index(request):
     if category.isdigit():
         courses = courses.filter(category_id=int(category))
     return render(request, "shop/courses.html", {...})
+
 
 def single_course(request, course_id):
     course = get_object_or_404(Course.objects.select_related("category"), pk=course_id)
@@ -405,7 +453,7 @@ class CourseResource(ModelResource):
     class Meta:
         queryset = Course.objects.select_related("category")
         resource_name = "courses"
-        allowed_methods = ["get"]                  # запись — через админку
+        allowed_methods = ["get"]  # запись — через админку
         authorization = ReadOnlyAuthorization()
         always_return_data = True
 

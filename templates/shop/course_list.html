@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% load shop_tags %}
+{% block title %}Каталог курсов — TRShop{% endblock %}
+{% block nav_class %}navbar-shrink{% endblock %}
+
+{% block content %}
+    <section class="page-header">
+        <div class="container px-4 px-lg-5">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb small mb-2">
+                    <li class="breadcrumb-item"><a href="{% url 'home' %}">Главная</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Каталог</li>
+                </ol>
+            </nav>
+            <h1 class="fw-bold mb-2">Каталог курсов</h1>
+            <p class="text-muted mb-0">
+                Найдено {{ total_found }} {{ total_found|ru_plural:"курс,курса,курсов" }}.
+                Используйте фильтры, чтобы сузить выбор.
+            </p>
+        </div>
+    </section>
+
+    <section class="pb-5">
+        <div class="container px-4 px-lg-5">
+            <div class="row g-4">
+                <aside class="col-lg-3">
+                    <div class="card border-0 shadow-sm filter-card">
+                        <div class="card-body">
+                            <h2 class="h6 text-uppercase text-muted mb-3">Фильтры</h2>
+                            <form method="get" action="{% url 'shop:course_list' %}">
+                                <div class="mb-3">
+                                    <label for="q" class="form-label small">Поиск по названию</label>
+                                    <input type="search" class="form-control" id="q" name="q" value="{{ selected.q }}" placeholder="Например, Django">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="category" class="form-label small">Категория</label>
+                                    <select class="form-select" id="category" name="category">
+                                        <option value="">Все категории</option>
+                                        {% for category in categories %}
+                                            <option value="{{ category.slug }}" {% if category.slug == selected.category %}selected{% endif %}>
+                                                {{ category.title }} ({{ category.courses_total }})
+                                            </option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="level" class="form-label small">Уровень</label>
+                                    <select class="form-select" id="level" name="level">
+                                        <option value="">Любой</option>
+                                        {% for value, label in levels %}
+                                            <option value="{{ value }}" {% if value == selected.level %}selected{% endif %}>{{ label }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label small">Цена, ₽</label>
+                                    <div class="d-flex gap-2">
+                                        <input type="number" class="form-control" name="price_min" min="0" placeholder="от" value="{{ selected.price_min }}">
+                                        <input type="number" class="form-control" name="price_max" min="0" placeholder="до" value="{{ selected.price_max }}">
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="sort" class="form-label small">Сортировка</label>
+                                    <select class="form-select" id="sort" name="sort">
+                                        {% for value, label in sort_options %}
+                                            <option value="{{ value }}" {% if value == selected.sort %}selected{% endif %}>{{ label }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-primary w-100">Применить</button>
+                                <a href="{% url 'shop:course_list' %}" class="btn btn-link w-100 text-muted">Сбросить</a>
+                            </form>
+                        </div>
+                    </div>
+                </aside>
+
+                <div class="col-lg-9">
+                    <div class="row g-4">
+                        {% for course in courses %}
+                            <div class="col-md-6">
+                                {% include "includes/course_card.html" with course=course %}
+                            </div>
+                        {% empty %}
+                            <div class="col-12">
+                                <div class="card border-0 shadow-sm">
+                                    <div class="card-body text-center py-5">
+                                        <div class="display-6 mb-2">🔍</div>
+                                        <h2 class="h5">Ничего не найдено</h2>
+                                        <p class="text-muted mb-3">Попробуйте изменить запрос или сбросить фильтры.</p>
+                                        <a href="{% url 'shop:course_list' %}" class="btn btn-outline-primary">Показать все курсы</a>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                    {% include "includes/pagination.html" with querystring=querystring %}
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

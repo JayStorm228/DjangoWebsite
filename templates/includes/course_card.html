@@ -1,0 +1,43 @@
+{% load static %}
+<article class="card course-card h-100 border-0 shadow-sm">
+    <a href="{{ course.get_absolute_url }}" class="course-card__media">
+        {% if course.image %}
+            <img src="{{ course.image.url }}" class="card-img-top" alt="{{ course.title }}" loading="lazy">
+        {% else %}
+            <img src="{% static 'assets/img/portfolio/thumbnails/1.jpg' %}" class="card-img-top" alt="{{ course.title }}" loading="lazy">
+        {% endif %}
+        {% if course.discount_percent %}
+            <span class="badge bg-danger course-card__discount">−{{ course.discount_percent }}%</span>
+        {% endif %}
+    </a>
+    <div class="card-body d-flex flex-column">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+            <span class="badge badge-soft">{{ course.category.title }}</span>
+            <span class="small text-muted">{{ course.get_level_display }}</span>
+        </div>
+        <h3 class="h5 card-title mb-2">
+            <a href="{{ course.get_absolute_url }}" class="stretched-link text-reset text-decoration-none">{{ course.title }}</a>
+        </h3>
+        <p class="card-text text-muted small flex-grow-1">{{ course.short_description|truncatechars:110 }}</p>
+        <div class="d-flex align-items-center justify-content-between small text-muted mb-3">
+            <span>
+                {% with rating=course.rating_avg|default:course.rating %}
+                    <span class="text-warning">★</span>
+                    {% if rating %}{{ rating|floatformat:1 }}{% else %}нет оценок{% endif %}
+                {% endwith %}
+                <span class="mx-1">·</span>
+                {{ course.reviews_total|default:course.reviews_count }} отз.
+            </span>
+            <span>{{ course.duration_hours }} ч</span>
+        </div>
+        <div class="d-flex align-items-center justify-content-between">
+            <div>
+                <span class="course-price">{{ course.price|floatformat:2 }} ₽</span>
+                {% if course.old_price %}
+                    <span class="course-price-old">{{ course.old_price|floatformat:2 }} ₽</span>
+                {% endif %}
+            </div>
+            <span class="btn btn-outline-primary btn-sm">Подробнее</span>
+        </div>
+    </div>
+</article>

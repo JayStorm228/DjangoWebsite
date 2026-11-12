@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Страница не найдена — TRShop{% endblock %}
+{% block nav_class %}navbar-shrink{% endblock %}
+
+{% block content %}
+    <section class="page-header">
+        <div class="container px-4 px-lg-5">
+            <div class="row justify-content-center text-center py-5">
+                <div class="col-lg-7">
+                    <div class="display-1 fw-bold text-primary mb-2">404</div>
+                    <h1 class="h3 fw-bold mb-3">Такой страницы нет</h1>
+                    <p class="text-muted mb-4">
+                        Возможно, ссылка устарела или в адресе опечатка. Загляните в каталог — там точно что-то есть.
+                    </p>
+                    <div class="d-flex flex-column flex-sm-row justify-content-center gap-2">
+                        <a href="{% url 'shop:course_list' %}" class="btn btn-primary">В каталог</a>
+                        <a href="{% url 'home' %}" class="btn btn-outline-secondary">На главную</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

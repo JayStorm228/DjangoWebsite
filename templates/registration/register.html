@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}Регистрация — TRShop{% endblock %}
+{% block nav_class %}navbar-shrink{% endblock %}
+
+{% block content %}
+    <section class="page-header">
+        <div class="container px-4 px-lg-5">
+            <h1 class="fw-bold mb-2">Регистрация</h1>
+            <p class="text-muted mb-0">Создайте аккаунт, чтобы покупать курсы и оставлять отзывы.</p>
+        </div>
+    </section>
+
+    <section class="pb-5">
+        <div class="container px-4 px-lg-5">
+            <div class="row justify-content-center">
+                <div class="col-md-8 col-lg-6">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body p-4 p-lg-5">
+                            <form method="post" action="{% url 'shop:register' %}" novalidate>
+                                {% csrf_token %}
+                                {% if form.non_field_errors %}
+                                    <div class="alert alert-danger small">{{ form.non_field_errors }}</div>
+                                {% endif %}
+                                {% for field in form %}
+                                    <div class="mb-3">
+                                        <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+                                        {{ field }}
+                                        {% if field.help_text %}<div class="form-text">{{ field.help_text|safe }}</div>{% endif %}
+                                        {% if field.errors %}<div class="text-danger small">{{ field.errors }}</div>{% endif %}
+                                    </div>
+                                {% endfor %}
+                                <button type="submit" class="btn btn-primary w-100 btn-lg">Создать аккаунт</button>
+                            </form>
+                            <p class="text-center text-muted small mt-4 mb-0">
+                                Уже есть аккаунт? <a href="{% url 'login' %}">Войти</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

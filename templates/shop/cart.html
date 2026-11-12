@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% load shop_tags %}
+{% block title %}Корзина — TRShop{% endblock %}
+{% block nav_class %}navbar-shrink{% endblock %}
+
+{% block content %}
+    <section class="page-header">
+        <div class="container px-4 px-lg-5">
+            <h1 class="fw-bold mb-2">Корзина</h1>
+            <p class="text-muted mb-0">Проверьте состав заказа перед оформлением.</p>
+        </div>
+    </section>
+
+    <section class="pb-5">
+        <div class="container px-4 px-lg-5">
+            {% if cart|length %}
+                <div class="row g-4">
+                    <div class="col-lg-8">
+                        {% for course in cart %}
+                            <div class="card border-0 shadow-sm mb-3">
+                                <div class="card-body">
+                                    <div class="d-flex flex-column flex-sm-row gap-3 align-items-sm-center">
+                                        <div class="cart-thumb">
+                                            {% if course.image %}
+                                                <img src="{{ course.image.url }}" alt="{{ course.title }}">
+                                            {% endif %}
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <span class="badge badge-soft mb-1">{{ course.category.title }}</span>
+                                            <h2 class="h6 mb-1">
+                                                <a href="{{ course.get_absolute_url }}" class="text-reset text-decoration-none">{{ course.title }}</a>
+                                            </h2>
+                                            <div class="text-muted small">{{ course.duration_hours }} ч · {{ course.get_level_display }}</div>
+                                        </div>
+                                        <div class="text-sm-end">
+                                            <div class="fw-bold">{{ course.price|floatformat:2 }} ₽</div>
+                                            <form method="post" action="{% url 'shop:cart_remove' course.id %}" class="mt-2">
+                                                {% csrf_token %}
+                                                <button type="submit" class="btn btn-link btn-sm text-muted p-0">Удалить</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                        <a href="{% url 'shop:course_list' %}" class="btn btn-link text-muted ps-0">← Продолжить выбор курсов</a>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-body p-4">
+                                <h2 class="h6 text-uppercase text-muted mb-3">Итого</h2>
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span class="text-muted">Курсов</span>
+                                    <span>{{ cart|length }}</span>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-baseline border-top pt-3 mb-3">
+                                    <span class="fw-bold">К оплате</span>
+                                    <span class="h4 mb-0 text-primary fw-bold">{{ cart.total_price|floatformat:2 }} ₽</span>
+                                </div>
+                                <a href="{% url 'shop:checkout' %}" class="btn btn-primary w-100 btn-lg">
+                                    {% if user.is_authenticated %}Оформить заказ{% else %}Войти и оформить{% endif %}
+                                </a>
+                                {% if not user.is_authenticated %}
+                                    <p class="small text-muted mt-2 mb-0">Для оформления нужен аккаунт — это займёт минуту.</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body text-center py-5">
+                        <div class="display-5 mb-3">🛒</div>
+                        <h2 class="h4">Корзина пуста</h2>
+                        <p class="text-muted mb-4">Добавьте курс из каталога, чтобы оформить покупку.</p>
+                        <a href="{% url 'shop:course_list' %}" class="btn btn-primary btn-lg">Перейти в каталог</a>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </section>
+{% endblock %}

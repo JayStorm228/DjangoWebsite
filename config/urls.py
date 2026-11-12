@@ -1,36 +1,41 @@
+"""Корневые маршруты проекта TRShop."""
+
+from django.conf import settings
+from django.conf.urls.static import static
 from django.contrib import admin
+from django.contrib.auth import views as auth_views
 from django.urls import include, path
-from tastypie.api import Api
+from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 
-from api.models import CategoryResource, CourseResource
+from shop.forms import LoginForm
 
-from .views import index
-
-"""
-URL configuration for config project.
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/6.1/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
-api = Api(api_name="v1")
-course_resource = CourseResource()
-category_resource = CategoryResource()
-api.register(category_resource)
-api.register(course_resource)
+from .views import home
 
 urlpatterns = [
-    path("admin/", admin.site.urls, name="admin"),
+    path("", home, name="home"),
     path("shop/", include("shop.urls")),
-    path("", index, name="home"),
-    path("api/", include(api.urls)),
+    path(
+        "accounts/login/",
+        auth_views.LoginView.as_view(
+            template_name="registration/login.html",
+            authentication_form=LoginForm,
+            redirect_authenticated_user=True,
+        ),
+        name="login",
+    ),
+    path("accounts/", include("django.contrib.auth.urls")),
+    path("api/v1/", include("api.urls")),
+    path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
+    path(
+        "api/docs/",
+        SpectacularSwaggerView.as_view(url_name="schema"),
+        name="swagger-ui",
+    ),
+    path("admin/", admin.site.urls),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+handler404 = "config.views.page_not_found"
+handler500 = "config.views.server_error"

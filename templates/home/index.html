@@ -1,26 +1,140 @@
-{% extends "home/base.html" %}
-{% block title %}Главная{% endblock %}
-{% block home_content %}
-  <div class="container py-5">
-    <div class="row align-items-center g-5">
-      <div class="col-lg-7">
-        <h1 class="fw-bold mb-3">Курсы для обучения и развития</h1>
-        <p class="text-muted fs-5 mb-4">
-          В каталоге собраны доступные курсы. Выберите подходящую тему,
-          посмотрите описание и начните обучение.
-        </p>
-        <a href="{% url 'shop:index' %}" class="btn btn-primary btn-lg px-4">Смотреть курсы</a>
-      </div>
-      <div class="col-lg-5">
-        <div class="bg-white border rounded-3 p-4">
-          <h2 class="h5 fw-semibold mb-3">Как это работает</h2>
-          <ol class="mb-0 ps-3 text-muted">
-            <li class="mb-2">Откройте каталог курсов.</li>
-            <li class="mb-2">Выберите интересующую тему.</li>
-            <li>Перейдите к материалам курса.</li>
-          </ol>
+{% extends "base.html" %}
+{% load shop_tags %}
+{% block title %}TRShop — курсы, после которых хочется учиться{% endblock %}
+{% block meta_description %}Каталог практических курсов по Python, Django, дизайну и аналитике. Прозрачные цены, отзывы и мгновенный доступ после покупки.{% endblock %}
+
+{% block content %}
+    <header class="masthead">
+        <div class="container px-4 px-lg-5 h-100">
+            <div class="row gx-4 gx-lg-5 h-100 align-items-center">
+                <div class="col-lg-8 text-white">
+                    <span class="hero-badge mb-3">Онлайн-курсы с практикой</span>
+                    <h1 class="display-4 fw-bold mb-3">Учитесь сегодня —<br>применяйте завтра</h1>
+                    <p class="text-white-75 fs-5 mb-4 hero-lead">
+                        Короткие и понятные курсы по программированию, дизайну и аналитике.
+                        Доступ открывается сразу после покупки, а прогресс всегда под рукой.
+                    </p>
+                    <div class="d-flex flex-column flex-sm-row gap-3">
+                        <a class="btn btn-primary btn-xl" href="{% url 'shop:course_list' %}">Смотреть каталог</a>
+                        <a class="btn btn-outline-light btn-xl" href="#about">Как это работает</a>
+                    </div>
+                    <div class="hero-stats d-flex flex-wrap gap-4 mt-5">
+                        <div><div class="hero-stats__value">{{ stats.courses }}</div><div class="hero-stats__label">курсов в каталоге</div></div>
+                        <div><div class="hero-stats__value">{{ stats.students }}</div><div class="hero-stats__label">студентов записались</div></div>
+                        <div><div class="hero-stats__value">{{ stats.reviews }}</div><div class="hero-stats__label">отзывов оставлено</div></div>
+                    </div>
+                </div>
+                <div class="col-lg-4 d-none d-lg-block">
+                    <div class="hero-card">
+                        <h2 class="h5 text-dark fw-bold mb-3">Популярная категория</h2>
+                        {% for category in categories|slice:":3" %}
+                            <a class="hero-card__row" href="{% url 'shop:course_list' %}?category={{ category.slug }}">
+                                <span>{{ category.title }}</span>
+                                <span class="text-muted small">{{ category.courses_total }} {{ category.courses_total|ru_plural:"курс,курса,курсов" }}</span>
+                            </a>
+                        {% empty %}
+                            <p class="text-muted small mb-0">Категории появятся после наполнения каталога.</p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </div>
+    </header>
+
+    <section class="page-section" id="about">
+        <div class="container px-4 px-lg-5">
+            <div class="text-center mb-5">
+                <h2 class="mt-0 fw-bold">Почему TRShop</h2>
+                <hr class="divider">
+                <p class="text-muted">Всё, что нужно для спокойной учёбы: понятная программа, живые примеры и доступ навсегда.</p>
+            </div>
+            <div class="row gx-4 gx-lg-5">
+                <div class="col-lg-3 col-md-6 text-center">
+                    <div class="feature">
+                        <div class="feature__icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2m3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2"/><path d="M5.5 12a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1H6a.5.5 0 0 1-.5-.5"/></svg>
+                        </div>
+                        <h3 class="h5 mt-3">Практика, а не теория</h3>
+                        <p class="text-muted small mb-0">В каждом курсе — задания и примеры, которые можно повторить сразу.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 text-center">
+                    <div class="feature">
+                        <div class="feature__icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true"><path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z"/><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M1.5 8a6.5 6.5 0 1 0 13 0 6.5 6.5 0 0 0-13 0"/></svg>
+                        </div>
+                        <h3 class="h5 mt-3">Доступ навсегда</h3>
+                        <p class="text-muted small mb-0">Купили курс — он остаётся в личном кабинете без подписок и таймеров.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 text-center">
+                    <div class="feature">
+                        <div class="feature__icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true"><path d="M11.251.068a.5.5 0 0 1 .227.58L9.677 6.5H13a.5.5 0 0 1 .364.843l-8 8.5a.5.5 0 0 1-.842-.49L6.323 9.5H3a.5.5 0 0 1-.364-.843l8-8.5a.5.5 0 0 1 .615-.09"/></svg>
+                        </div>
+                        <h3 class="h5 mt-3">Быстрый старт</h3>
+                        <p class="text-muted small mb-0">Оплата в один шаг, доступ сразу: не нужно ждать подтверждения.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 text-center">
+                    <div class="feature">
+                        <div class="feature__icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/><path d="M8 4.5a.5.5 0 0 1 .5.5v3.5H12a.5.5 0 0 1 0 1H8a.5.5 0 0 1-.5-.5V5a.5.5 0 0 1 .5-.5"/></svg>
+                        </div>
+                        <h3 class="h5 mt-3">Своим темпом</h3>
+                        <p class="text-muted small mb-0">Записи и материалы открываются в удобное время — без вебинаров по расписанию.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="page-section bg-light" id="courses">
+        <div class="container px-4 px-lg-5">
+            <div class="d-flex flex-wrap justify-content-between align-items-end mb-4 gap-3">
+                <div>
+                    <h2 class="mt-0 fw-bold mb-1">Популярные курсы</h2>
+                    <p class="text-muted mb-0">Выбор студентов — и хорошая точка входа для новичка.</p>
+                </div>
+                <a class="btn btn-outline-dark" href="{% url 'shop:course_list' %}">Весь каталог</a>
+            </div>
+            <div class="row g-4">
+                {% for course in featured_courses %}
+                    <div class="col-md-6 col-lg-4">
+                        {% include "includes/course_card.html" with course=course %}
+                    </div>
+                {% empty %}
+                    <div class="col-12">
+                        <div class="alert alert-info mb-0">
+                            В каталоге пока нет курсов. Запустите <code>python manage.py seed_demo</code>, чтобы добавить демо-данные.
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    {% if categories %}
+        <section class="py-5">
+            <div class="container px-4 px-lg-5">
+                <h2 class="h4 fw-bold mb-4">Категории</h2>
+                <div class="d-flex flex-wrap gap-2">
+                    {% for category in categories %}
+                        <a class="category-pill" href="{% url 'shop:course_list' %}?category={{ category.slug }}">
+                            {{ category.title }} <span>{{ category.courses_total }}</span>
+                        </a>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+    {% endif %}
+
+    <section class="page-section bg-primary text-white">
+        <div class="container px-4 px-lg-5 text-center">
+            <h2 class="mt-0 fw-bold">Готовы начать?</h2>
+            <hr class="divider divider-light">
+            <p class="text-white-75 mb-4">Выберите курс из каталога — и через пару минут уже будете учиться.</p>
+            <a class="btn btn-light btn-xl" href="{% url 'shop:course_list' %}">Перейти в каталог</a>
+        </div>
+    </section>
 {% endblock %}

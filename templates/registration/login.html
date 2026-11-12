@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}Вход — TRShop{% endblock %}
+{% block nav_class %}navbar-shrink{% endblock %}
+
+{% block content %}
+    <section class="page-header">
+        <div class="container px-4 px-lg-5">
+            <h1 class="fw-bold mb-2">Вход в аккаунт</h1>
+            <p class="text-muted mb-0">Войдите, чтобы оформить заказ и оставить отзыв.</p>
+        </div>
+    </section>
+
+    <section class="pb-5">
+        <div class="container px-4 px-lg-5">
+            <div class="row justify-content-center">
+                <div class="col-md-8 col-lg-5">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body p-4 p-lg-5">
+                            <form method="post" action="{% url 'login' %}">
+                                {% csrf_token %}
+                                <input type="hidden" name="next" value="{{ next }}">
+                                {% if form.non_field_errors %}
+                                    <div class="alert alert-danger small">{{ form.non_field_errors }}</div>
+                                {% endif %}
+                                <div class="mb-3">
+                                    <label for="{{ form.username.id_for_label }}" class="form-label">Логин</label>
+                                    {{ form.username }}
+                                    {% if form.username.errors %}<div class="text-danger small">{{ form.username.errors }}</div>{% endif %}
+                                </div>
+                                <div class="mb-4">
+                                    <label for="{{ form.password.id_for_label }}" class="form-label">Пароль</label>
+                                    {{ form.password }}
+                                    {% if form.password.errors %}<div class="text-danger small">{{ form.password.errors }}</div>{% endif %}
+                                </div>
+                                <button type="submit" class="btn btn-primary w-100 btn-lg">Войти</button>
+                            </form>
+                            <p class="text-center text-muted small mt-4 mb-0">
+                                Нет аккаунта? <a href="{% url 'shop:register' %}">Зарегистрироваться</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

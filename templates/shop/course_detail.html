@@ -1,0 +1,147 @@
+{% extends "base.html" %}
+{% load shop_tags %}
+{% block title %}{{ course.title }} — TRShop{% endblock %}
+{% block meta_description %}{{ course.short_description }}{% endblock %}
+{% block nav_class %}navbar-shrink{% endblock %}
+
+{% block content %}
+    <section class="page-header">
+        <div class="container px-4 px-lg-5">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb small mb-2">
+                    <li class="breadcrumb-item"><a href="{% url 'home' %}">Главная</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'shop:course_list' %}">Каталог</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'shop:course_list' %}?category={{ course.category.slug }}">{{ course.category.title }}</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ course.title|truncatechars:32 }}</li>
+                </ol>
+            </nav>
+        </div>
+    </section>
+
+    <section class="pb-4">
+        <div class="container px-4 px-lg-5">
+            <div class="row g-4 g-lg-5">
+                <div class="col-lg-8">
+                    <div class="course-hero rounded-3 overflow-hidden shadow-sm mb-4">
+                        {% if course.image %}
+                            <img src="{{ course.image.url }}" alt="{{ course.title }}" class="w-100 course-hero__img">
+                        {% else %}
+                            <div class="course-hero__placeholder">TRShop</div>
+                        {% endif %}
+                    </div>
+
+                    <span class="badge badge-soft mb-2">{{ course.category.title }}</span>
+                    <h1 class="fw-bold mb-3">{{ course.title }}</h1>
+                    <p class="lead text-muted">{{ course.short_description }}</p>
+
+                    <div class="d-flex flex-wrap gap-4 py-3 my-3 border-top border-bottom text-muted small">
+                        <span><span class="text-warning">★</span> {% if course.rating %}{{ course.rating|floatformat:1 }}{% else %}нет оценок{% endif %} ({{ course.reviews_count }})</span>
+                        <span>{{ course.student_qty }} {{ course.student_qty|ru_plural:"студент,студента,студентов" }}</span>
+                        <span>{{ course.duration_hours }} ч материала</span>
+                        <span>{{ course.get_level_display }}</span>
+                    </div>
+
+                    <h2 class="h4 fw-bold mt-4">О курсе</h2>
+                    <div class="text-muted course-description">{{ course.description|linebreaks }}</div>
+
+                    <div class="reviews mt-5" id="reviews">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h2 class="h4 fw-bold mb-0">Отзывы</h2>
+                            <span class="text-muted small">{{ course.reviews_count }} {{ course.reviews_count|ru_plural:"отзыв,отзыва,отзывов" }}</span>
+                        </div>
+
+                        {% for review in reviews %}
+                            <div class="card border-0 shadow-sm mb-3">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <strong>{{ review.user.username }}</strong>
+                                        <span class="text-warning small">
+                                            {% for _ in "12345"|make_list %}
+                                                {% if forloop.counter <= review.rating %}★{% else %}<span class="text-muted">★</span>{% endif %}
+                                            {% endfor %}
+                                        </span>
+                                    </div>
+                                    {% if review.text %}<p class="mb-1 text-muted">{{ review.text|linebreaksbr }}</p>{% endif %}
+                                    <small class="text-muted">{{ review.created_at|date:"d.m.Y" }}</small>
+                                </div>
+                            </div>
+                        {% empty %}
+                            <p class="text-muted">Отзывов пока нет — станьте первым.</p>
+                        {% endfor %}
+
+                        <div class="card border-0 bg-light mt-4">
+                            <div class="card-body">
+                                <h3 class="h6 fw-bold mb-3">Оставить отзыв</h3>
+                                {% if user.is_authenticated %}
+                                    <form method="post" action="{% url 'shop:add_review' course.slug %}">
+                                        {% csrf_token %}
+                                        <div class="row g-3">
+                                            <div class="col-sm-4">
+                                                <label for="{{ review_form.rating.id_for_label }}" class="form-label small">Оценка</label>
+                                                {{ review_form.rating }}
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <label for="{{ review_form.text.id_for_label }}" class="form-label small">Комментарий</label>
+                                                {{ review_form.text }}
+                                            </div>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary mt-3">Отправить отзыв</button>
+                                    </form>
+                                {% else %}
+                                    <p class="text-muted mb-2">Чтобы оставить отзыв, войдите в аккаунт.</p>
+                                    <a href="{% url 'login' %}?next={{ request.path }}" class="btn btn-outline-primary btn-sm">Войти</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <aside class="col-lg-4">
+                    <div class="card border-0 shadow-sm purchase-card sticky-lg-top">
+                        <div class="card-body p-4">
+                            <div class="d-flex align-items-baseline gap-2 mb-1">
+                                <span class="display-6 fw-bold text-primary">{{ course.price|floatformat:2 }} ₽</span>
+                                {% if course.old_price %}
+                                    <span class="text-muted text-decoration-line-through">{{ course.old_price|floatformat:2 }} ₽</span>
+                                {% endif %}
+                            </div>
+                            {% if course.discount_percent %}
+                                <span class="badge bg-danger mb-3">Скидка {{ course.discount_percent }}%</span>
+                            {% endif %}
+
+                            <ul class="list-unstyled small text-muted my-4">
+                                <li class="mb-2">✓ Доступ навсегда</li>
+                                <li class="mb-2">✓ {{ course.duration_hours }} часов материалов</li>
+                                <li class="mb-2">✓ Уровень: {{ course.get_level_display }}</li>
+                                <li>✓ Сертификат после прохождения</li>
+                            </ul>
+
+                            {% if in_cart %}
+                                <a href="{% url 'shop:cart' %}" class="btn btn-success w-100 btn-lg mb-2">Уже в корзине — перейти</a>
+                            {% else %}
+                                <form method="post" action="{% url 'shop:cart_add' course.id %}">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="next" value="{{ request.path }}">
+                                    <button type="submit" class="btn btn-primary w-100 btn-lg mb-2">Добавить в корзину</button>
+                                </form>
+                            {% endif %}
+                            <a href="{% url 'shop:course_list' %}" class="btn btn-link w-100 text-muted">← Назад в каталог</a>
+                        </div>
+                    </div>
+
+                    {% if related_courses %}
+                        <div class="mt-4">
+                            <h2 class="h6 text-uppercase text-muted mb-3">Похожие курсы</h2>
+                            {% for related in related_courses %}
+                                <a href="{{ related.get_absolute_url }}" class="related-course text-decoration-none">
+                                    <span class="related-course__title">{{ related.title }}</span>
+                                    <span class="related-course__price">{{ related.price|floatformat:2 }} ₽</span>
+                                </a>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </aside>
+            </div>
+        </div>
+    </section>
+{% endblock %}
