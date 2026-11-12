@@ -11,38 +11,38 @@
 Ниже перечислены решения, которые уже реализованы в проекте. Сам аудит оставлен
 как история: он описывает исходное состояние коммита `67307f2`.
 
-| Проблема | Решение | Статус |
-|---|---|---|
-| P0-1 `ALLOWED_HOSTS` / preview | env-настройки, `ALLOWED_HOSTS`, `CSRF_TRUSTED_ORIGINS` | ✅ |
-| P0-2 конфликт версий | Django 6.1 + DRF, `requires-python = ">=3.12"`, tastypie удалён | ✅ |
-| P0-3 `?category=abc` → 500 | безопасный разбор фильтров + тесты на мусорные параметры | ✅ |
-| P0-4 API падает / нет валидации | каталог API только для чтения, заказы — только владельцу; сериализаторы DRF | ✅ |
-| P0-5 `category_id` = название | вложенная категория + корректный slug в ответе | ✅ |
-| P0-6 удаление чужих курсов | публичный API read-only, запись — через админку | ✅ |
-| P0-7 секреты в Git | `SECRET_KEY`/`DEBUG` из окружения, `.env.example` | ✅ |
-| P0-8 дрейф миграций | `DEFAULT_AUTO_FIELD`, новая чистая миграция | ✅ |
-| P1-1 цена во float | `DecimalField`, вывод в рублях, старая цена и скидка | ✅ |
-| P1-2 поиск/пагинация/N+1 | `icontains`, `select_related`, `annotate`, пагинация по 9, сортировки | ✅ |
-| P1-3 пустая карточка курса | новая страница: обложка, описание, отзывы, метрики, CTA | ✅ |
-| P1-4 404 и маршруты | `get_object_or_404`, slug-URL, страницы 404/500 | ✅ |
-| P1-5 «Buy» ничего не делает | корзина, оформление, заказы, «Мои покупки», отзывы | ✅ |
-| P1-6 нет API | DRF: каталог, категории, заказы, токены, OpenAPI и Swagger | ✅ |
-| P1-7 визуал | тема Start Bootstrap + `theme.css`, карточки, обложки | ✅ |
-| P1-8 плюрализация и языки | `ru-ru`, фильтр `ru_plural`, единый русский интерфейс | ✅ |
-| P1-9 админка и демо-данные | настроенная админка + `seed_demo` | ✅ |
-| P2-1 тесты | 37 тестов (pytest-django) | ✅ |
-| P2-2 CI и линт | GitHub Actions, ruff/ruff format/djlint/migrations/pytest | ✅ |
-| P2-3 README | полная документация и быстрый старт | ✅ |
-| P2-4 медиа | `MEDIA_URL/MEDIA_ROOT`, `ImageField`, Pillow | ✅ |
-| P2-5 структура API | `serializers.py`, `views.py`, `urls.py`, `pagination.py` | ✅ |
-| P2-6 модели | verbose_name, auto_now_add, related_name, индексы, ограничения | ✅ |
-| P2-7 настройки | env, логирование, WhiteNoise, прод-безопасность | ✅ |
-| P2-8 шаблоны | чистое наследование, include-ы, единый base | ✅ |
-| P2-9 API-контракт | фильтры, поиск, сортировка, схема OpenAPI | ✅ |
-| P2-10 API-ключи | токены DRF и endpoint `/api/v1/auth/token/` | ✅ |
-| P2-11 доступность/SEO | метаописания, семантика, адаптивные карточки | ✅ |
-| P2-12 `main.py` | удалён | ✅ |
-| P3 стиль | ruff/форматирование/мелочи | ✅ |
+| Проблема                        | Решение                                                                     | Статус |
+| ------------------------------- | --------------------------------------------------------------------------- | ------ |
+| P0-1 `ALLOWED_HOSTS` / preview  | env-настройки, `ALLOWED_HOSTS`, `CSRF_TRUSTED_ORIGINS`                      | ✅     |
+| P0-2 конфликт версий            | Django 6.1 + DRF, `requires-python = ">=3.12"`, tastypie удалён             | ✅     |
+| P0-3 `?category=abc` → 500      | безопасный разбор фильтров + тесты на мусорные параметры                    | ✅     |
+| P0-4 API падает / нет валидации | каталог API только для чтения, заказы — только владельцу; сериализаторы DRF | ✅     |
+| P0-5 `category_id` = название   | вложенная категория + корректный slug в ответе                              | ✅     |
+| P0-6 удаление чужих курсов      | публичный API read-only, запись — через админку                             | ✅     |
+| P0-7 секреты в Git              | `SECRET_KEY`/`DEBUG` из окружения, `.env.example`                           | ✅     |
+| P0-8 дрейф миграций             | `DEFAULT_AUTO_FIELD`, новая чистая миграция                                 | ✅     |
+| P1-1 цена во float              | `DecimalField`, вывод в рублях, старая цена и скидка                        | ✅     |
+| P1-2 поиск/пагинация/N+1        | `icontains`, `select_related`, `annotate`, пагинация по 9, сортировки       | ✅     |
+| P1-3 пустая карточка курса      | новая страница: обложка, описание, отзывы, метрики, CTA                     | ✅     |
+| P1-4 404 и маршруты             | `get_object_or_404`, slug-URL, страницы 404/500                             | ✅     |
+| P1-5 «Buy» ничего не делает     | корзина, оформление, заказы, «Мои покупки», отзывы                          | ✅     |
+| P1-6 нет API                    | DRF: каталог, категории, заказы, токены, OpenAPI и Swagger                  | ✅     |
+| P1-7 визуал                     | тема Start Bootstrap + `theme.css`, карточки, обложки                       | ✅     |
+| P1-8 плюрализация и языки       | `ru-ru`, фильтр `ru_plural`, единый русский интерфейс                       | ✅     |
+| P1-9 админка и демо-данные      | настроенная админка + `seed_demo`                                           | ✅     |
+| P2-1 тесты                      | 37 тестов (pytest-django)                                                   | ✅     |
+| P2-2 CI и линт                  | GitHub Actions, ruff/ruff format/djlint/migrations/pytest                   | ✅     |
+| P2-3 README                     | полная документация и быстрый старт                                         | ✅     |
+| P2-4 медиа                      | `MEDIA_URL/MEDIA_ROOT`, `ImageField`, Pillow                                | ✅     |
+| P2-5 структура API              | `serializers.py`, `views.py`, `urls.py`, `pagination.py`                    | ✅     |
+| P2-6 модели                     | verbose_name, auto_now_add, related_name, индексы, ограничения              | ✅     |
+| P2-7 настройки                  | env, логирование, WhiteNoise, прод-безопасность                             | ✅     |
+| P2-8 шаблоны                    | чистое наследование, include-ы, единый base                                 | ✅     |
+| P2-9 API-контракт               | фильтры, поиск, сортировка, схема OpenAPI                                   | ✅     |
+| P2-10 API-ключи                 | токены DRF и endpoint `/api/v1/auth/token/`                                 | ✅     |
+| P2-11 доступность/SEO           | метаописания, семантика, адаптивные карточки                                | ✅     |
+| P2-12 `main.py`                 | удалён                                                                      | ✅     |
+| P3 стиль                        | ruff/форматирование/мелочи                                                  | ✅     |
 
 **Что осталось как осознанный выбор / следующий шаг:** PostgreSQL и Docker для
 продакшена, CORS (если появятся браузерные клиенты на других доменах), оплата
@@ -53,16 +53,16 @@
 
 ## 0. Как проверял
 
-| Проверка | Команда | Результат |
-|---|---|---|
-| Системные проверки Django | `manage.py check` | 4 предупреждения `W042` (auto-created PK) |
-| Дрейф миграций | `makemigrations --check --dry-run` | **требуется новая миграция `0002_alter_*_id`** |
-| Линтер Python | `ruff check .` | 5 ошибок (4 автофиксимых) |
-| Форматирование Python | `ruff format --check .` | 5 файлов не отформатированы |
-| Линтер шаблонов | `djlint --lint --profile django templates` | 0 ошибок (хорошо), но форматирование отличается |
-| Функциональный прогон | Django test client + 3 тестовых курса, ~20 запросов | найдены падения ниже |
-| API | GET/POST/DELETE с `ApiKey` | найдены 5 дефектов |
-| Тесты | `shop/tests.py`, `api/tests.py` | **тестов нет вообще** |
+| Проверка                  | Команда                                             | Результат                                       |
+| ------------------------- | --------------------------------------------------- | ----------------------------------------------- |
+| Системные проверки Django | `manage.py check`                                   | 4 предупреждения `W042` (auto-created PK)       |
+| Дрейф миграций            | `makemigrations --check --dry-run`                  | **требуется новая миграция `0002_alter_*_id`**  |
+| Линтер Python             | `ruff check .`                                      | 5 ошибок (4 автофиксимых)                       |
+| Форматирование Python     | `ruff format --check .`                             | 5 файлов не отформатированы                     |
+| Линтер шаблонов           | `djlint --lint --profile django templates`          | 0 ошибок (хорошо), но форматирование отличается |
+| Функциональный прогон     | Django test client + 3 тестовых курса, ~20 запросов | найдены падения ниже                            |
+| API                       | GET/POST/DELETE с `ApiKey`                          | найдены 5 дефектов                              |
+| Тесты                     | `shop/tests.py`, `api/tests.py`                     | **тестов нет вообще**                           |
 
 **Ограничение аудита:** в песочнице доступен только Python 3.11, а Django 6.1.2 требует ≥ 3.12, поэтому
 прогон выполнялся на Django 5.2.19. Все найденные дефекты находятся в коде проекта (URL, views, шаблоны,
@@ -94,12 +94,12 @@
 
 **Сводка по приоритетам**
 
-| Приоритет | Кол-во | Смысл |
-|---|---|---|
-| **P0** — критично | 8 | ломает запуск, безопасность, API, деньги |
-| **P1** — серьёзно | 9 | нет обязательной функциональности магазина |
-| **P2** — средне | 12 | качество кода, архитектура, поддерживаемость |
-| **P3** — мелочи | 10 | стиль, косметика |
+| Приоритет         | Кол-во | Смысл                                        |
+| ----------------- | ------ | -------------------------------------------- |
+| **P0** — критично | 8      | ломает запуск, безопасность, API, деньги     |
+| **P1** — серьёзно | 9      | нет обязательной функциональности магазина   |
+| **P2** — средне   | 12     | качество кода, архитектура, поддерживаемость |
+| **P3** — мелочи   | 10     | стиль, косметика                             |
 
 ---
 
@@ -163,12 +163,12 @@
 **Где:** `api/models.py:25-27` (`hydrate`), `Meta` без `validation`.
 **Воспроизведение (ключ `ApiKey`):**
 
-| Запрос | Результат |
-|---|---|
-| `POST /api/v1/courses/` без `category_id` | **500** `KeyError: 'category_id'` |
-| `POST ... category_id=999` | **500** `IntegrityError: FOREIGN KEY constraint failed` |
-| `POST ... price=-500, student_qty=-42` | **201 Created** — отрицательные цена и число студентов сохранены |
-| `POST ... title` из 1000 символов | **201 Created** — превышение `max_length=255` не проверяется |
+| Запрос                                    | Результат                                                        |
+| ----------------------------------------- | ---------------------------------------------------------------- |
+| `POST /api/v1/courses/` без `category_id` | **500** `KeyError: 'category_id'`                                |
+| `POST ... category_id=999`                | **500** `IntegrityError: FOREIGN KEY constraint failed`          |
+| `POST ... price=-500, student_qty=-42`    | **201 Created** — отрицательные цена и число студентов сохранены |
+| `POST ... title` из 1000 символов         | **201 Created** — превышение `max_length=255` не проверяется     |
 
 **Причина:** `hydrate` жёстко читает ключ из `bundle.data`, исключения не перехватываются, `full_clean()`
 не вызывается, валидаторов на полях нет.
@@ -344,20 +344,20 @@ test mode / ЮKassa test) — это же станет «внешним API» п
 
 ## 4. P2 — средние проблемы
 
-| ID | Проблема | Где | Решения |
-|---|---|---|---|
-| P2-1 | **Нет тестов.** `tests.py` пустые, `pytest-django` в dev-зависимостях, но нет `[tool.pytest.ini_options]`/`conftest.py` — `pytest` не запустится. | `shop/tests.py`, `api/tests.py`, `pyproject.toml` | **A (рек.)** pytest-django + `DJANGO_SETTINGS_MODULE` + 15–20 тестов (views, filters, API, 404, валидация) + `factory_boy`; **B** — `manage.py test` без pytest; **C** — + `coverage` с порогом 80 % в CI |
-| P2-2 | **Нет CI и линт «красный».** `ruff` — 5 ошибок, 5 файлов не отформатированы; нет GitHub Actions. | весь проект | **A (рек.)** GitHub Actions: `ruff check`, `ruff format --check`, `djlint --lint`, `pytest`, `makemigrations --check`; **B** — только pre-commit-хуки локально; **C** — + Dependabot |
-| P2-3 | **README пустой (0 байт).** Непонятно, как запустить, какие переменные окружения нужны, где API. | `README.md` | **A (рек.)** README: описание, стек, установка (`uv sync`, `migrate`, `seed_demo`, `runserver`), структура, API-эндпоинты, скриншоты; **B** — + `docs/` с API-справкой; **C** — + `CONTRIBUTING.md`/`LICENSE` |
-| P2-4 | **Нет загрузки изображений.** `MEDIA_URL`/`MEDIA_ROOT` не заданы, `Pillow` не установлен — картинку курса физически некуда положить. | `config/settings.py` | **A (рек.)** `MEDIA_URL="/media/"`, `MEDIA_ROOT`, `+ static(settings.MEDIA_URL, ...)` в dev-`urls.py`, `ImageField`, `Pillow`; **B** — внешние URL картинок в `URLField` (проще, но зависимость от чужих сайтов); **C** — S3/Cloudinary (избыточно) |
-| P2-5 | **`api/models.py` — не модели, а tastypie-ресурсы.** Смешение слоёв, пустые `views.py`/`admin.py`/`tests.py`, пустая папка `migrations` без моделей. | `api/` | **A (рек.)** переименовать в `api/resources.py` (или удалить при переходе на DRF), убрать пустые файлы; **B** — оставить, добавить комментарий; **C** — реструктурировать в `api/v1/…` |
-| P2-6 | **Модели бедные.** Нет `verbose_name` (админка на английском), `created_at = default=timezone.now` вместо `auto_now_add`, `title` не уникален, нет `related_name`, `Meta.ordering`, индексов, `updated_at`. | `shop/models.py` | **A (рек.)** добавить `verbose_name`, `auto_now_add`, `updated_at`, `related_name="courses"`, `ordering`, `db_index` для поиска, `unique=True` для категорий (+ миграция); **B** — только `verbose_name` и `auto_now_add`; **C** — `slug` + `get_absolute_url()` |
-| P2-7 | **Настройки «по умолчанию».** Нет `DEFAULT_AUTO_FIELD`, `LOGGING`, прод-статики (WhiteNoise/`collectstatic`), `MEDIA`, security-флагов; SQLite только для dev; `STATIC_URL = "static/"` без ведущего слэша (работает, но не по конвенции). | `config/settings.py` | **A (рек.)** env-настройки + `DEFAULT_AUTO_FIELD` + `LOGGING` + WhiteNoise; **B** — + PostgreSQL через `docker-compose`; **C** — + `django-debug-toolbar`/`silk` в dev |
-| P2-8 | **Шаблоны: сломанное наследование.** `home/base.html` объявляет `{% block body_class %}`, которого нет в `base.html`; `single_course.html` переопределяет `content` вместо `shop_content`; `home/index.html` дважды задаёт `title`; 404-шаблон в `includes/`. | `templates/` | **A (рек.)** почистить блоки, добавить `{% block body_class %}` в `base.html` и `{% block meta %}`, вынести 404; **B** — перейти на компонентные include-ы (`_course_card.html`, `_pagination.html`); **C** — + `django-components`/`slippers` |
-| P2-9 | **API без контракта.** Нет фильтров/сортировки/`fields`, нет `throttling`, CORS, схемы/документации, `always_return_data`; `created_at` отдаётся без таймзоны (`2026-11-12T12:08:51.004584`). | `api/models.py` | **A (рек.)** DRF + `django-filter` + `drf-spectacular` (`/api/docs/`) + `ScopedRateThrottle`; **B** — допилить tastypie (`filtering`, `ordering`, `fields`, `cache`); **C** — GraphQL (не для этого проекта) |
-| P2-10 | **API-ключи негде взять.** `ApiKeyAuthentication` требует `ApiKey`, но ресурса/сигнала/инструкции нет — студент не может проверить POST/DELETE. | `api/auth.py` | **A (рек.)** при переходе на DRF — токены (`authtoken`) и `/api/auth/token/`; **B** — сигнал `post_save` на `User` → создать `ApiKey`, + раздел в README; **C** — оставить только чтение (тогда ключи не нужны) |
-| P2-11 | **Нет доступности/SEO-базы.** Устаревший `align="center"`, `type` у `<a>`, нет `meta description`, OG-тегов, favicon, `alt` (картинок нет), таблица не адаптивна на телефоне (`table` без `.table-responsive`). | `templates/` | **A (рек.)** семантика + `text-center`, `.table-responsive` (или карточки), `meta description`/OG, favicon; **B** — + `sitemap.xml`/`robots.txt`; **C** — + Lighthouse-аудит |
-| P2-12 | **`main.py` — мусорный файл.** `@dataclass class Test` с `arg2 = str` (это атрибут класса, а не аннотация), `print("Hello from test-django!")` — не относится к Django, путает новичка. | `main.py` | **A (рек.)** удалить; **B** — перенести в `scripts/` как песочницу; **C** — оставить, но починить `arg2: str = ""` |
+| ID    | Проблема                                                                                                                                                                                                                                                      | Где                                               | Решения                                                                                                                                                                                                                                                          |
+| ----- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| P2-1  | **Нет тестов.** `tests.py` пустые, `pytest-django` в dev-зависимостях, но нет `[tool.pytest.ini_options]`/`conftest.py` — `pytest` не запустится.                                                                                                             | `shop/tests.py`, `api/tests.py`, `pyproject.toml` | **A (рек.)** pytest-django + `DJANGO_SETTINGS_MODULE` + 15–20 тестов (views, filters, API, 404, валидация) + `factory_boy`; **B** — `manage.py test` без pytest; **C** — + `coverage` с порогом 80 % в CI                                                        |
+| P2-2  | **Нет CI и линт «красный».** `ruff` — 5 ошибок, 5 файлов не отформатированы; нет GitHub Actions.                                                                                                                                                              | весь проект                                       | **A (рек.)** GitHub Actions: `ruff check`, `ruff format --check`, `djlint --lint`, `pytest`, `makemigrations --check`; **B** — только pre-commit-хуки локально; **C** — + Dependabot                                                                             |
+| P2-3  | **README пустой (0 байт).** Непонятно, как запустить, какие переменные окружения нужны, где API.                                                                                                                                                              | `README.md`                                       | **A (рек.)** README: описание, стек, установка (`uv sync`, `migrate`, `seed_demo`, `runserver`), структура, API-эндпоинты, скриншоты; **B** — + `docs/` с API-справкой; **C** — + `CONTRIBUTING.md`/`LICENSE`                                                    |
+| P2-4  | **Нет загрузки изображений.** `MEDIA_URL`/`MEDIA_ROOT` не заданы, `Pillow` не установлен — картинку курса физически некуда положить.                                                                                                                          | `config/settings.py`                              | **A (рек.)** `MEDIA_URL="/media/"`, `MEDIA_ROOT`, `+ static(settings.MEDIA_URL, ...)` в dev-`urls.py`, `ImageField`, `Pillow`; **B** — внешние URL картинок в `URLField` (проще, но зависимость от чужих сайтов); **C** — S3/Cloudinary (избыточно)              |
+| P2-5  | **`api/models.py` — не модели, а tastypie-ресурсы.** Смешение слоёв, пустые `views.py`/`admin.py`/`tests.py`, пустая папка `migrations` без моделей.                                                                                                          | `api/`                                            | **A (рек.)** переименовать в `api/resources.py` (или удалить при переходе на DRF), убрать пустые файлы; **B** — оставить, добавить комментарий; **C** — реструктурировать в `api/v1/…`                                                                           |
+| P2-6  | **Модели бедные.** Нет `verbose_name` (админка на английском), `created_at = default=timezone.now` вместо `auto_now_add`, `title` не уникален, нет `related_name`, `Meta.ordering`, индексов, `updated_at`.                                                   | `shop/models.py`                                  | **A (рек.)** добавить `verbose_name`, `auto_now_add`, `updated_at`, `related_name="courses"`, `ordering`, `db_index` для поиска, `unique=True` для категорий (+ миграция); **B** — только `verbose_name` и `auto_now_add`; **C** — `slug` + `get_absolute_url()` |
+| P2-7  | **Настройки «по умолчанию».** Нет `DEFAULT_AUTO_FIELD`, `LOGGING`, прод-статики (WhiteNoise/`collectstatic`), `MEDIA`, security-флагов; SQLite только для dev; `STATIC_URL = "static/"` без ведущего слэша (работает, но не по конвенции).                    | `config/settings.py`                              | **A (рек.)** env-настройки + `DEFAULT_AUTO_FIELD` + `LOGGING` + WhiteNoise; **B** — + PostgreSQL через `docker-compose`; **C** — + `django-debug-toolbar`/`silk` в dev                                                                                           |
+| P2-8  | **Шаблоны: сломанное наследование.** `home/base.html` объявляет `{% block body_class %}`, которого нет в `base.html`; `single_course.html` переопределяет `content` вместо `shop_content`; `home/index.html` дважды задаёт `title`; 404-шаблон в `includes/`. | `templates/`                                      | **A (рек.)** почистить блоки, добавить `{% block body_class %}` в `base.html` и `{% block meta %}`, вынести 404; **B** — перейти на компонентные include-ы (`_course_card.html`, `_pagination.html`); **C** — + `django-components`/`slippers`                   |
+| P2-9  | **API без контракта.** Нет фильтров/сортировки/`fields`, нет `throttling`, CORS, схемы/документации, `always_return_data`; `created_at` отдаётся без таймзоны (`2026-11-12T12:08:51.004584`).                                                                 | `api/models.py`                                   | **A (рек.)** DRF + `django-filter` + `drf-spectacular` (`/api/docs/`) + `ScopedRateThrottle`; **B** — допилить tastypie (`filtering`, `ordering`, `fields`, `cache`); **C** — GraphQL (не для этого проекта)                                                     |
+| P2-10 | **API-ключи негде взять.** `ApiKeyAuthentication` требует `ApiKey`, но ресурса/сигнала/инструкции нет — студент не может проверить POST/DELETE.                                                                                                               | `api/auth.py`                                     | **A (рек.)** при переходе на DRF — токены (`authtoken`) и `/api/auth/token/`; **B** — сигнал `post_save` на `User` → создать `ApiKey`, + раздел в README; **C** — оставить только чтение (тогда ключи не нужны)                                                  |
+| P2-11 | **Нет доступности/SEO-базы.** Устаревший `align="center"`, `type` у `<a>`, нет `meta description`, OG-тегов, favicon, `alt` (картинок нет), таблица не адаптивна на телефоне (`table` без `.table-responsive`).                                               | `templates/`                                      | **A (рек.)** семантика + `text-center`, `.table-responsive` (или карточки), `meta description`/OG, favicon; **B** — + `sitemap.xml`/`robots.txt`; **C** — + Lighthouse-аудит                                                                                     |
+| P2-12 | **`main.py` — мусорный файл.** `@dataclass class Test` с `arg2 = str` (это атрибут класса, а не аннотация), `print("Hello from test-django!")` — не относится к Django, путает новичка.                                                                       | `main.py`                                         | **A (рек.)** удалить; **B** — перенести в `scripts/` как песочницу; **C** — оставить, но починить `arg2: str = ""`                                                                                                                                               |
 
 ---
 
@@ -401,12 +401,12 @@ Cart ──* CartItem ──* Course          Order 1──* OrderItem *──1 
 
 **План по итерациям**
 
-| Итерация | Содержание | Оценка |
-|---|---|---|
-| **0. Стабилизация** | P0-1…P0-8 + P2-1/P2-2 (линт, тесты каркаса), README-минимум | 3–4 ч |
-| **1. Каталог** | Decimal-цена, slug, описание/картинки, поиск/фильтры/пагинация, карточки и тема, админка, `seed_demo` | 1–2 дня |
-| **2. Покупка** | корзина, заказы, регистрация/вход, «Мои покупки», страницы ошибок | 2–3 дня |
-| **3. API и интеграция** | DRF + OpenAPI, права, внешний API (валюты или Stripe test) с кэшем и fallback, тесты, CI | 2–3 дня |
+| Итерация                | Содержание                                                                                            | Оценка  |
+| ----------------------- | ----------------------------------------------------------------------------------------------------- | ------- |
+| **0. Стабилизация**     | P0-1…P0-8 + P2-1/P2-2 (линт, тесты каркаса), README-минимум                                           | 3–4 ч   |
+| **1. Каталог**          | Decimal-цена, slug, описание/картинки, поиск/фильтры/пагинация, карточки и тема, админка, `seed_demo` | 1–2 дня |
+| **2. Покупка**          | корзина, заказы, регистрация/вход, «Мои покупки», страницы ошибок                                     | 2–3 дня |
+| **3. API и интеграция** | DRF + OpenAPI, права, внешний API (валюты или Stripe test) с кэшем и fallback, тесты, CI              | 2–3 дня |
 
 ---
 
@@ -464,8 +464,10 @@ class CourseResource(ModelResource):
 
 ```html
 <!-- templates/shop/single_course.html -->
-{{ course.student_qty }}        <!-- вместо students_qty -->
-<div class="text-center">...</div>  <!-- вместо align="center" -->
+{{ course.student_qty }}
+<!-- вместо students_qty -->
+<div class="text-center">...</div>
+<!-- вместо align="center" -->
 ```
 
 ```bash
@@ -482,7 +484,7 @@ djlint --reformat --profile django templates
 
 Чтобы не делать лишнего, нужно определиться с четырьмя вещами:
 
-1. **Что значит «внешний API»** — сайт *потребляет* чужой сервис, *предоставляет* свой для внешних клиентов, или оба варианта.
+1. **Что значит «внешний API»** — сайт _потребляет_ чужой сервис, _предоставляет_ свой для внешних клиентов, или оба варианта.
 2. **Объём следующего шага** — только критичные баги, MVP-магазин целиком или полный рефакторинг с DRF.
 3. **Стек API** — Django 5.2 LTS + DRF (стабильно, полезно для учёбы) или остаться на tastypie/Django 6.1.
 4. **Визуал** — своя тема на Bootstrap, готовый шаблон или Tailwind.
