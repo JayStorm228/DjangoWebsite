@@ -1,0 +1,137 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static admin_stats %}
+
+{% block bodyclass %}{{ block.super }} dashboard tr-dashboard-body{% endblock %}
+{% block nav-breadcrumbs %}{% endblock %}
+
+{% block content %}
+    <div id="content-main">
+        {% admin_stats as stats %}
+
+        <div class="tr-dashboard">
+            <div class="tr-dashboard__head">
+                <div>
+                    <h1>Обзор магазина</h1>
+                    <p class="tr-muted">Ключевые цифры и быстрые действия. Всё остальное — в приложениях ниже.</p>
+                </div>
+                <a class="tr-button" href="{% url 'admin:shop_sitesettings_changelist' %}">
+                    ⚙ Настроить сайт
+                </a>
+            </div>
+
+            {% if stats.courses_draft %}
+                <div class="tr-note">
+                    <strong>{{ stats.courses_draft }}</strong> курсов не опубликованы и не видны покупателям.
+                    <a href="{% url 'admin:shop_course_changelist' %}?is_published__exact=0">Показать черновики</a>
+                </div>
+            {% endif %}
+
+            <div class="tr-cards">
+                <div class="tr-card">
+                    <div class="tr-card__label">Курсы</div>
+                    <div class="tr-card__value">{{ stats.courses_total }}</div>
+                    <div class="tr-card__hint">опубликовано {{ stats.courses_published }}</div>
+                </div>
+                <div class="tr-card">
+                    <div class="tr-card__label">Заказы</div>
+                    <div class="tr-card__value">{{ stats.orders_total }}</div>
+                    <div class="tr-card__hint">оплачено {{ stats.orders_paid }}</div>
+                </div>
+                <div class="tr-card tr-card--accent">
+                    <div class="tr-card__label">Выручка</div>
+                    <div class="tr-card__value">
+                        {{ stats.revenue|floatformat:2 }} {{ site_settings.currency_symbol }}
+                    </div>
+                    <div class="tr-card__hint">по оплаченным заказам</div>
+                </div>
+                <div class="tr-card">
+                    <div class="tr-card__label">Студенты</div>
+                    <div class="tr-card__value">{{ stats.students }}</div>
+                    <div class="tr-card__hint">записей на курсы</div>
+                </div>
+                <div class="tr-card">
+                    <div class="tr-card__label">Отзывы</div>
+                    <div class="tr-card__value">{{ stats.reviews }}</div>
+                    <div class="tr-card__hint">
+                        {% if stats.avg_rating %}средняя оценка {{ stats.avg_rating|floatformat:1 }}{% else %}пока нет оценок{% endif %}
+                    </div>
+                </div>
+                <div class="tr-card">
+                    <div class="tr-card__label">Пользователи</div>
+                    <div class="tr-card__value">{{ stats.users }}</div>
+                    <div class="tr-card__hint">включая администраторов</div>
+                </div>
+            </div>
+
+            <div class="tr-columns">
+                <section class="tr-panel">
+                    <div class="tr-panel__head">
+                        <h2>Последние заказы</h2>
+                        <a href="{% url 'admin:shop_order_changelist' %}">Все заказы</a>
+                    </div>
+                    {% recent_orders 5 %}
+                </section>
+
+                <section class="tr-panel">
+                    <div class="tr-panel__head">
+                        <h2>Быстрые действия</h2>
+                    </div>
+                    <ul class="tr-actions">
+                        <li>
+                            <a href="{% url 'admin:shop_course_add' %}">
+                                <span class="tr-actions__icon">＋</span>
+                                <span>
+                                    <strong>Добавить курс</strong>
+                                    <small>Заполнить карточку и обложку</small>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{% url 'admin:shop_course_changelist' %}">
+                                <span class="tr-actions__icon">☰</span>
+                                <span>
+                                    <strong>Управление курсами</strong>
+                                    <small>Публикация, цены, копии</small>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{% url 'admin:shop_category_changelist' %}">
+                                <span class="tr-actions__icon">◈</span>
+                                <span>
+                                    <strong>Категории</strong>
+                                    <small>Структура каталога</small>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{% url 'admin:shop_review_changelist' %}">
+                                <span class="tr-actions__icon">★</span>
+                                <span>
+                                    <strong>Отзывы</strong>
+                                    <small>Модерация оценок</small>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{% url 'admin:shop_sitesettings_changelist' %}">
+                                <span class="tr-actions__icon">⚙</span>
+                                <span>
+                                    <strong>Настройки сайта</strong>
+                                    <small>Тексты, контакты, валюта</small>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </section>
+            </div>
+
+            <section class="tr-panel tr-apps">
+                <div class="tr-panel__head">
+                    <h2>Приложения</h2>
+                </div>
+                {% include "admin/app_list.html" with app_list=app_list show_changelinks=True %}
+            </section>
+        </div>
+    </div>
+{% endblock %}

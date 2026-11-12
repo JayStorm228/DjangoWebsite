@@ -30,7 +30,7 @@
 | P1-7 визуал                     | тема Start Bootstrap + `theme.css`, карточки, обложки                       | ✅     |
 | P1-8 плюрализация и языки       | `ru-ru`, фильтр `ru_plural`, единый русский интерфейс                       | ✅     |
 | P1-9 админка и демо-данные      | настроенная админка + `seed_demo`                                           | ✅     |
-| P2-1 тесты                      | 37 тестов (pytest-django)                                                   | ✅     |
+| P2-1 тесты                      | 48 тестов (pytest-django)                                                   | ✅     |
 | P2-2 CI и линт                  | GitHub Actions, ruff/ruff format/djlint/migrations/pytest                   | ✅     |
 | P2-3 README                     | полная документация и быстрый старт                                         | ✅     |
 | P2-4 медиа                      | `MEDIA_URL/MEDIA_ROOT`, `ImageField`, Pillow                                | ✅     |

@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load shop_tags %}
-{% block title %}Корзина — TRShop{% endblock %}
+{% block title %}Корзина — {{ site_settings.site_name }}{% endblock %}
 {% block nav_class %}navbar-shrink{% endblock %}
 
 {% block content %}
@@ -33,7 +33,7 @@
                                             <div class="text-muted small">{{ course.duration_hours }} ч · {{ course.get_level_display }}</div>
                                         </div>
                                         <div class="text-sm-end">
-                                            <div class="fw-bold">{{ course.price|floatformat:2 }} ₽</div>
+                                            <div class="fw-bold">{{ course.price|floatformat:2 }} {{ site_settings.currency_symbol }}</div>
                                             <form method="post" action="{% url 'shop:cart_remove' course.id %}" class="mt-2">
                                                 {% csrf_token %}
                                                 <button type="submit" class="btn btn-link btn-sm text-muted p-0">Удалить</button>
@@ -56,7 +56,7 @@
                                 </div>
                                 <div class="d-flex justify-content-between align-items-baseline border-top pt-3 mb-3">
                                     <span class="fw-bold">К оплате</span>
-                                    <span class="h4 mb-0 text-primary fw-bold">{{ cart.total_price|floatformat:2 }} ₽</span>
+                                    <span class="h4 mb-0 text-primary fw-bold">{{ cart.total_price|floatformat:2 }} {{ site_settings.currency_symbol }}</span>
                                 </div>
                                 <a href="{% url 'shop:checkout' %}" class="btn btn-primary w-100 btn-lg">
                                     {% if user.is_authenticated %}Оформить заказ{% else %}Войти и оформить{% endif %}

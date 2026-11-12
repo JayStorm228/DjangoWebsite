@@ -13,7 +13,7 @@ from django.core.files.base import ContentFile
 from django.core.management.base import BaseCommand
 from django.db import transaction
 
-from shop.models import Category, Course, Order, OrderItem, Review
+from shop.models import Category, Course, Order, OrderItem, Review, SiteSettings
 
 CATEGORIES = [
     ("Программирование", "programmirovanie", "Python, Django, API и всё, что нужно бэкендеру."),
@@ -272,6 +272,14 @@ class Command(BaseCommand):
                     title=first_course.title,
                     price=first_course.price,
                 )
+
+        site = SiteSettings.load()
+        if not site.contact_email:
+            site.contact_email = "hello@trshop.example"
+            site.contact_phone = "+7 900 123-45-67"
+            site.telegram_url = "https://t.me/trshop"
+            site.github_url = "https://github.com/JayStorm228/DjangoWebsite"
+            site.save()
 
         self.stdout.write(self.style.SUCCESS("Демо-данные готовы."))
         self.stdout.write(

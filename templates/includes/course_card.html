@@ -32,9 +32,9 @@
         </div>
         <div class="d-flex align-items-center justify-content-between">
             <div>
-                <span class="course-price">{{ course.price|floatformat:2 }} ₽</span>
+                <span class="course-price">{{ course.price|floatformat:2 }} {{ site_settings.currency_symbol }}</span>
                 {% if course.old_price %}
-                    <span class="course-price-old">{{ course.old_price|floatformat:2 }} ₽</span>
+                    <span class="course-price-old">{{ course.old_price|floatformat:2 }} {{ site_settings.currency_symbol }}</span>
                 {% endif %}
             </div>
             <span class="btn btn-outline-primary btn-sm">Подробнее</span>

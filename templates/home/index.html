@@ -1,19 +1,26 @@
 {% extends "base.html" %}
 {% load shop_tags %}
-{% block title %}TRShop — курсы, после которых хочется учиться{% endblock %}
+{% block title %}{{ site_settings.site_name }} — курсы, после которых хочется учиться{% endblock %}
 {% block meta_description %}Каталог практических курсов по Python, Django, дизайну и аналитике. Прозрачные цены, отзывы и мгновенный доступ после покупки.{% endblock %}
+
+{% block extra_css %}
+    {% if site_settings.hero_image %}
+        <style>
+            header.masthead {
+                background-image: linear-gradient(120deg, rgba(16, 22, 33, 0.9) 0%, rgba(24, 33, 48, 0.78) 55%, rgba(244, 98, 58, 0.35) 100%), url("{{ site_settings.hero_image.url }}");
+            }
+        </style>
+    {% endif %}
+{% endblock %}
 
 {% block content %}
     <header class="masthead">
         <div class="container px-4 px-lg-5 h-100">
             <div class="row gx-4 gx-lg-5 h-100 align-items-center">
                 <div class="col-lg-8 text-white">
-                    <span class="hero-badge mb-3">Онлайн-курсы с практикой</span>
-                    <h1 class="display-4 fw-bold mb-3">Учитесь сегодня —<br>применяйте завтра</h1>
-                    <p class="text-white-75 fs-5 mb-4 hero-lead">
-                        Короткие и понятные курсы по программированию, дизайну и аналитике.
-                        Доступ открывается сразу после покупки, а прогресс всегда под рукой.
-                    </p>
+                    <span class="hero-badge mb-3">{{ site_settings.hero_badge }}</span>
+                    <h1 class="display-4 fw-bold mb-3">{{ site_settings.hero_title }}</h1>
+                    <p class="text-white-75 fs-5 mb-4 hero-lead">{{ site_settings.hero_subtitle }}</p>
                     <div class="d-flex flex-column flex-sm-row gap-3">
                         <a class="btn btn-primary btn-xl" href="{% url 'shop:course_list' %}">Смотреть каталог</a>
                         <a class="btn btn-outline-light btn-xl" href="#about">Как это работает</a>
@@ -44,9 +51,9 @@
     <section class="page-section" id="about">
         <div class="container px-4 px-lg-5">
             <div class="text-center mb-5">
-                <h2 class="mt-0 fw-bold">Почему TRShop</h2>
+                <h2 class="mt-0 fw-bold">{{ site_settings.about_title }}</h2>
                 <hr class="divider">
-                <p class="text-muted">Всё, что нужно для спокойной учёбы: понятная программа, живые примеры и доступ навсегда.</p>
+                <p class="text-muted">{{ site_settings.about_subtitle }}</p>
             </div>
             <div class="row gx-4 gx-lg-5">
                 <div class="col-lg-3 col-md-6 text-center">

@@ -208,3 +208,86 @@ class OrderItem(models.Model):
 
     def __str__(self) -> str:
         return self.title
+
+
+class SiteSettings(models.Model):
+    """Единственная запись с настройками сайта (singleton)."""
+
+    site_name = models.CharField("название сайта", max_length=100, default="TRShop")
+    site_tagline = models.CharField(
+        "подзаголовок",
+        max_length=200,
+        default="Учебный магазин курсов на Django",
+    )
+    hero_badge = models.CharField(
+        "бейдж на первом экране",
+        max_length=120,
+        default="Онлайн-курсы с практикой",
+    )
+    hero_title = models.CharField(
+        "заголовок первого экрана",
+        max_length=200,
+        default="Учитесь сегодня — применяйте завтра",
+    )
+    hero_subtitle = models.TextField(
+        "текст первого экрана",
+        default=(
+            "Короткие и понятные курсы по программированию, дизайну и аналитике. "
+            "Доступ открывается сразу после покупки, а прогресс всегда под рукой."
+        ),
+    )
+    hero_image = models.ImageField(
+        "фон первого экрана",
+        upload_to="site/",
+        blank=True,
+        help_text="Необязательно: если не загрузить, останется стандартный фон темы.",
+    )
+    about_title = models.CharField(
+        "заголовок блока «Почему мы»",
+        max_length=200,
+        default="Почему TRShop",
+    )
+    about_subtitle = models.TextField(
+        "текст блока «Почему мы»",
+        default=(
+            "Всё, что нужно для спокойной учёбы: понятная программа, "
+            "живые примеры и доступ навсегда."
+        ),
+    )
+    contact_email = models.EmailField("email для связи", blank=True)
+    contact_phone = models.CharField("телефон", max_length=40, blank=True)
+    contact_address = models.CharField("адрес", max_length=200, blank=True)
+    telegram_url = models.URLField("Telegram", blank=True)
+    github_url = models.URLField("GitHub", blank=True)
+    footer_text = models.CharField(
+        "текст в подвале",
+        max_length=200,
+        default="учебный проект на Django и DRF.",
+    )
+    currency_symbol = models.CharField("символ валюты", max_length=8, default="₽")
+    courses_per_page = models.PositiveSmallIntegerField(
+        "курсов на странице каталога",
+        default=9,
+        validators=[MinValueValidator(3), MaxValueValidator(48)],
+    )
+    updated_at = models.DateTimeField("обновлено", auto_now=True)
+
+    class Meta:
+        verbose_name = "настройки сайта"
+        verbose_name_plural = "настройки сайта"
+
+    def __str__(self) -> str:
+        return f"Настройки сайта «{self.site_name}»"
+
+    def save(self, *args, **kwargs):
+        # Сайт всегда использует одну запись.
+        self.pk = 1
+        super().save(*args, **kwargs)
+
+    @classmethod
+    def load(cls) -> "SiteSettings":
+        settings_obj, _ = cls.objects.get_or_create(pk=1)
+        return settings_obj
+
+    def get_absolute_url(self) -> str:
+        return "/"

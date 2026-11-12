@@ -1,0 +1,540 @@
+/* ==========================================================================
+   TRShop — оформление админки
+   ========================================================================== */
+
+:root,
+html[data-theme="light"] {
+    --tr-accent: #f4623a;
+    --tr-accent-dark: #d9502c;
+    --tr-ink: #1f2937;
+    --tr-muted: #6b7280;
+    --tr-line: rgba(31, 41, 55, 0.1);
+    --tr-panel: #fff;
+    --tr-bg: #f6f4f2;
+}
+
+html[data-theme="dark"] {
+    --tr-line: rgba(255, 255, 255, 0.12);
+    --tr-panel: #1f242c;
+    --tr-bg: #161a20;
+}
+
+body {
+    background: var(--tr-bg);
+}
+
+/* --- Шапка --------------------------------------------------------------- */
+
+#header {
+    background: #1b2028;
+    color: #fff;
+    padding: 14px 40px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+#header a:link,
+#header a:visited {
+    color: #fff;
+}
+
+#branding {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+#site-name {
+    font-size: 1.05rem;
+}
+
+#site-name a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+}
+
+.tr-brand-mark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 9px;
+    background: var(--tr-accent);
+    color: #fff;
+    font-size: 0.78rem;
+    font-weight: 800;
+}
+
+.tr-brand-sub {
+    margin-left: 40px;
+    color: rgba(255, 255, 255, 0.55);
+    font-size: 0.78rem;
+}
+
+.tr-nav-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+    margin-left: auto;
+    font-size: 0.82rem;
+}
+
+.tr-nav-links a {
+    color: rgba(255, 255, 255, 0.8) !important;
+    text-decoration: none;
+}
+
+.tr-nav-links a:hover {
+    color: #fff !important;
+    text-decoration: underline;
+}
+
+/* --- Контент ------------------------------------------------------------- */
+
+.tr-dashboard {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 8px 4px 40px;
+}
+
+.tr-dashboard__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 22px;
+}
+
+.tr-dashboard__head h1 {
+    margin: 0 0 4px;
+    font-size: 1.5rem;
+    color: var(--tr-ink);
+}
+
+html[data-theme="dark"] .tr-dashboard__head h1 {
+    color: #f3f4f6;
+}
+
+.tr-dashboard__head p {
+    margin: 0;
+    font-size: 0.85rem;
+}
+
+.tr-muted {
+    color: var(--tr-muted) !important;
+}
+
+.tr-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    border-radius: 999px;
+    background: var(--tr-accent);
+    color: #fff !important;
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-decoration: none;
+    box-shadow: 0 8px 18px rgba(244, 98, 58, 0.28);
+}
+
+.tr-button:hover {
+    background: var(--tr-accent-dark);
+}
+
+.tr-note {
+    margin-bottom: 18px;
+    padding: 12px 18px;
+    border-left: 4px solid var(--tr-accent);
+    border-radius: 10px;
+    background: var(--tr-panel);
+    color: var(--tr-ink);
+    font-size: 0.85rem;
+    box-shadow: 0 2px 8px rgba(31, 41, 55, 0.06);
+}
+
+html[data-theme="dark"] .tr-note {
+    color: #e5e7eb;
+}
+
+.tr-note a {
+    margin-left: 8px;
+    color: var(--tr-accent-dark);
+    font-weight: 600;
+}
+
+html[data-theme="dark"] .tr-note a {
+    color: #ff9b7f;
+}
+
+/* --- Карточки цифр ------------------------------------------------------- */
+
+.tr-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 14px;
+    margin-bottom: 26px;
+}
+
+.tr-card {
+    padding: 18px 20px;
+    border-radius: 14px;
+    background: var(--tr-panel);
+    border: 1px solid var(--tr-line);
+    box-shadow: 0 4px 14px rgba(31, 41, 55, 0.05);
+}
+
+.tr-card--accent {
+    background: linear-gradient(135deg, #f4623a, #ff8a5c);
+    border-color: transparent;
+    color: #fff;
+}
+
+.tr-card__label {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--tr-muted);
+    margin-bottom: 6px;
+}
+
+.tr-card--accent .tr-card__label,
+.tr-card--accent .tr-card__hint {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.tr-card__value {
+    font-size: 1.7rem;
+    font-weight: 800;
+    line-height: 1.1;
+    color: var(--tr-ink);
+}
+
+html[data-theme="dark"] .tr-card__value {
+    color: #f3f4f6;
+}
+
+.tr-card--accent .tr-card__value {
+    color: #fff;
+}
+
+.tr-card__hint {
+    margin-top: 4px;
+    font-size: 0.75rem;
+    color: var(--tr-muted);
+}
+
+/* --- Панели -------------------------------------------------------------- */
+
+.tr-columns {
+    display: grid;
+    grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+    gap: 18px;
+    margin-bottom: 22px;
+}
+
+@media (max-width: 960px) {
+    .tr-columns {
+        grid-template-columns: 1fr;
+    }
+}
+
+.tr-panel {
+    padding: 20px;
+    border-radius: 14px;
+    background: var(--tr-panel);
+    border: 1px solid var(--tr-line);
+    box-shadow: 0 4px 14px rgba(31, 41, 55, 0.05);
+}
+
+.tr-panel__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+
+.tr-panel__head h2 {
+    margin: 0;
+    font-size: 1rem;
+    color: var(--tr-ink);
+}
+
+html[data-theme="dark"] .tr-panel__head h2 {
+    color: #f3f4f6;
+}
+
+.tr-panel__head a {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--tr-accent-dark);
+    text-decoration: none;
+}
+
+html[data-theme="dark"] .tr-panel__head a {
+    color: #ff9b7f;
+}
+
+/* --- Таблица заказов ----------------------------------------------------- */
+
+.tr-table-wrap {
+    overflow-x: auto;
+}
+
+.tr-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+}
+
+.tr-table th {
+    padding: 8px 10px;
+    text-align: left;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--tr-muted);
+    border-bottom: 1px solid var(--tr-line);
+    font-weight: 600;
+}
+
+.tr-table td {
+    padding: 10px;
+    border-bottom: 1px solid var(--tr-line);
+    color: var(--tr-ink);
+    vertical-align: middle;
+}
+
+html[data-theme="dark"] .tr-table td {
+    color: #e5e7eb;
+}
+
+.tr-table tr:last-child td {
+    border-bottom: 0;
+}
+
+.tr-table a {
+    font-weight: 600;
+    color: var(--tr-accent-dark);
+    text-decoration: none;
+}
+
+html[data-theme="dark"] .tr-table a {
+    color: #ff9b7f;
+}
+
+.tr-table__num {
+    text-align: right;
+    white-space: nowrap;
+}
+
+.tr-badge {
+    display: inline-block;
+    padding: 3px 9px;
+    border-radius: 999px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    background: rgba(107, 114, 128, 0.15);
+    color: var(--tr-muted);
+}
+
+.tr-badge--paid {
+    background: rgba(22, 163, 74, 0.14);
+    color: #15803d;
+}
+
+.tr-badge--new {
+    background: rgba(37, 99, 235, 0.12);
+    color: #1d4ed8;
+}
+
+.tr-badge--cancelled {
+    background: rgba(220, 38, 38, 0.12);
+    color: #b91c1c;
+}
+
+html[data-theme="dark"] .tr-badge--paid {
+    color: #4ade80;
+}
+
+html[data-theme="dark"] .tr-badge--new {
+    color: #93c5fd;
+}
+
+html[data-theme="dark"] .tr-badge--cancelled {
+    color: #fca5a5;
+}
+
+.tr-empty {
+    margin: 8px 0;
+    padding: 18px;
+    border: 1px dashed var(--tr-line);
+    border-radius: 10px;
+    color: var(--tr-muted);
+    font-size: 0.85rem;
+    text-align: center;
+}
+
+/* --- Быстрые действия ---------------------------------------------------- */
+
+.tr-actions {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.tr-actions li + li {
+    margin-top: 6px;
+}
+
+.tr-actions a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    text-decoration: none;
+    color: var(--tr-ink);
+    transition: background 0.15s ease;
+}
+
+.tr-actions a:hover {
+    background: rgba(244, 98, 58, 0.08);
+}
+
+html[data-theme="dark"] .tr-actions a {
+    color: #e5e7eb;
+}
+
+.tr-actions__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 9px;
+    background: rgba(244, 98, 58, 0.12);
+    color: var(--tr-accent-dark);
+    font-size: 1rem;
+    flex-shrink: 0;
+}
+
+.tr-actions strong {
+    display: block;
+    font-size: 0.88rem;
+}
+
+.tr-actions small {
+    color: var(--tr-muted);
+    font-size: 0.75rem;
+}
+
+/* --- Приложения ---------------------------------------------------------- */
+
+.tr-apps #content-main,
+.tr-apps .module {
+    background: transparent;
+    box-shadow: none;
+    border: 0;
+}
+
+.tr-apps .module {
+    margin-bottom: 16px;
+}
+
+.tr-apps .module caption,
+.tr-apps .module h2,
+.tr-apps caption {
+    background: transparent !important;
+    color: var(--tr-ink) !important;
+    font-weight: 700;
+}
+
+html[data-theme="dark"] .tr-apps .module caption,
+html[data-theme="dark"] .tr-apps .module h2,
+html[data-theme="dark"] .tr-apps caption {
+    color: #f3f4f6 !important;
+}
+
+.tr-apps .module table {
+    background: transparent;
+}
+
+.tr-apps .module th,
+.tr-apps .module td {
+    border-color: var(--tr-line) !important;
+}
+
+/* --- Предпросмотр картинок ---------------------------------------------- */
+
+.tr-cover {
+    height: 34px;
+    width: 52px;
+    border-radius: 6px;
+    object-fit: cover;
+    vertical-align: middle;
+}
+
+.tr-cover-preview {
+    max-width: 420px;
+    width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(31, 41, 55, 0.15);
+}
+
+.tr-hero-preview {
+    max-width: 460px;
+    width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(31, 41, 55, 0.15);
+}
+
+.tr-rating {
+    color: #d97706;
+    font-weight: 700;
+}
+
+/* --- Формы --------------------------------------------------------------- */
+
+.form-row .help,
+.form-row .help a {
+    font-size: 0.8rem;
+}
+
+fieldset.module h2 {
+    font-weight: 700;
+}
+
+.submit-row input[type="submit"] {
+    border-radius: 999px;
+    padding-inline: 18px;
+}
+
+/* --- Мобильная адаптация ------------------------------------------------- */
+
+@media (max-width: 767px) {
+    #header {
+        padding: 12px 16px;
+        flex-wrap: wrap;
+    }
+
+    .tr-brand-sub {
+        display: none;
+    }
+
+    .tr-nav-links {
+        width: 100%;
+        margin-left: 0;
+        gap: 12px;
+    }
+
+    .tr-dashboard__head {
+        align-items: flex-start;
+    }
+}
